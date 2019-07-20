@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+   <head>
+       <meta charset="UTF-8">
+       <title>{% block title %}Welcome!{% endblock %}</title>
+       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+       {% block stylesheets %}{% endblock %}
+   </head>
+   <body>
+       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+           <div class="container">
+               <a class="navbar-brand" href="/">Darou</a>
+           </div>
+       </nav>
+       <div class="container mt-4">
+           {% block body %}{% endblock %}
+       </div>
+       {% block javascripts %}{% endblock %}
+       <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+       <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+   </body>
 </html>
