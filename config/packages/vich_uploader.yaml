@@ -8,8 +8,21 @@ vich_uploader:
 
     mappings:
         user_picture:
-            uri_prefix: /img/user-pictures
-            upload_destination: '%kernel.project_dir%/public/img/user-pictures'
+            uri_prefix: /uploads/user-pictures
+            upload_destination: '%kernel.project_dir%/public/uploads/user-pictures'
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'id'}
+
+        dog_picture:
+            uri_prefix: /uploads/dog-pictures
+            upload_destination: '%kernel.project_dir%/public/uploads/dog-pictures'
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+            namer:
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'id'}

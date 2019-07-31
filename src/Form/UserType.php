@@ -18,9 +18,8 @@ class UserType extends AbstractType
                 'label' => 'Photo (.jpg ou .png)',
                 'delete_label' => "Supprimer l'image",
                 'required' => false,
-                'download_link' => false
+                'download_uri' => false
             ])
-
             ->add('homeType', ChoiceType::class, [
                 'label' =>  "J'habite dans",
                 'choices'  => [

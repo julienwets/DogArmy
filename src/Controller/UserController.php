@@ -68,6 +68,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->imageFile = null;
 
             return $this->redirectToRoute('user_index');
         }

@@ -2,18 +2,21 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Serializable;
 
 /**
  * @Vich\Uploadable
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id()
@@ -28,7 +31,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
     private $roles = [];
 
@@ -48,21 +51,21 @@ class User implements UserInterface
     private $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @var string
      */
     private $imageName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      *
      * @var integer
      */
     private $imageSize;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
@@ -98,66 +101,111 @@ class User implements UserInterface
      */
     private $otherPreferences = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dog", mappedBy="user")
+     */
+    private $dogs;
 
-    public function getId(): ?int
+    public function __toString()
     {
-        return $this->id;
+        return (string) $this->getEmail();
     }
 
-    public function getEmail(): ?string
-    {
+    public function __construct() {
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid('', true));
+        $this->roles = ['ROLE_USER'];
+        $this->organizers = new ArrayCollection();
+    }
+
+    public function getUsername() {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
+    public function getSalt() {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
+    public function getPassword() {
+        return $this->password;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
+    function setPassword($password) {
         $this->password = $password;
+    }
 
+    // modifier la méthode getRoles
+    public function getRoles()
+    {
+        return $this->roles; 
+    }
+ 
+    public function setRoles(array $roles)
+    {
+        if (!in_array('ROLE_USER', $roles))
+        {
+            $roles[] = 'ROLE_USER';
+        }
+    
+        $this->roles = $roles;
         return $this;
+    }
+
+    function addRole($role) {
+        $this->roles[] = $role;
+    }
+
+
+    public function eraseCredentials() {
+        
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+                // see section on salt below
+                // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized) {
+        list (
+                $this->id,
+                $this->email,
+                $this->password,
+                // see section on salt below
+                // $this->salt
+                ) = unserialize($serialized);
+    }
+
+    function getId() {
+        return $this->id;
+    }
+
+    function getEmail() {
+        return $this->email;
+    }
+
+    function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
+    function setPlainPassword($plainPassword) {
+        $this->plainPassword = $plainPassword;
     }
 
     public function setImageFile(?File $imageFile = null): void
@@ -269,19 +317,35 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * @return Collection|Dog[]
      */
-    public function getSalt()
+    public function getDogs(): Collection
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return $this->dogs;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
+    public function addDog(Dog $dog): self
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        if (!$this->dogs->contains($dog)) {
+            $this->dogs[] = $dog;
+            $dog->setUser($this);
+        }
+
+        return $this;
     }
+
+    public function removeDog(Dog $dog): self
+    {
+        if ($this->dogs->contains($dog)) {
+            $this->dogs->removeElement($dog);
+            // set the owning side to null (unless already changed)
+            if ($dog->getUser() === $this) {
+                $dog->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    
 }
+

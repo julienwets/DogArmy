@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dog index{% endblock %}
+
+{% block body %}
+    <h1>Dog index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>BirthDate</th>
+                <th>Details</th>
+                <th>Instagram</th>
+                <th>HouseTrained</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dog in dogs %}
+            <tr>
+                <td>{{ dog.id }}</td>
+                <td>{{ dog.name }}</td>
+                <td>{{ dog.gender }}</td>
+                <td>{{ dog.birthDate ? dog.birthDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ dog.details ? dog.details|join(', ') : '' }}</td>
+                <td>{{ dog.instagram }}</td>
+                <td>{{ dog.houseTrained ? dog.houseTrained|join(', ') : '' }}</td>
+                <td>{{ dog.description }}</td>
+                <td>
+                    <a href="{{ path('dog_show', {'id': dog.id}) }}">show</a>
+                    <a href="{{ path('dog_edit', {'id': dog.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('dog_new') }}">Create new</a>
+{% endblock %}

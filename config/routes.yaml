@@ -3,3 +3,9 @@
 #    controller: App\Controller\DefaultController::index
 app_logout:
    path: /logout
+
+app_home:
+   path: /
+   controller: App\Controller\HomeController::index
+
+
