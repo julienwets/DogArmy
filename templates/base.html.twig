@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
-   <head>
-       <meta charset="UTF-8">
-       <title>{% block title %}Welcome!{% endblock %}</title>
-       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-       {% block stylesheets %}{% endblock %}
-   </head>
-   <body>
-       <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-           <div class="container">
-               <a class="navbar-brand" href="/">Dog Army</a>
-           </div>
-       </nav>
-       <div class="container mt-4">
-           {% block body %}{% endblock %}
-       </div>
-       {% block javascripts %}{% endblock %}
-       <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
-       <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-   </body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}Dog Army{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ asset('css/purpose.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/font-awesome/font-awesome.min.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    {% block body %}{% endblock %}
+
+    {# jquery, bootstrap, popper, in-view and sticky-kit #}
+    <script src="{{ asset('js/purpose.core.js') }}"></script>
+    {# Purpose JS #}
+    <script src="{{ asset('js/purpose.min.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+    
+</body>
+
 </html>
