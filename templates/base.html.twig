@@ -12,13 +12,22 @@
 </head>
 
 <body>
+    {% block header %}
+        {% include "partials/navbar.html.twig" %}
+    {% endblock %}
+
     {% block body %}{% endblock %}
 
+    {% block footer %}
+        {% include "partials/footer.html.twig" %}
+    {% endblock %}
+
+    {% block javascripts %}
     {# jquery, bootstrap, popper, in-view and sticky-kit #}
     <script src="{{ asset('js/purpose.core.js') }}"></script>
     {# Purpose JS #}
     <script src="{{ asset('js/purpose.min.js') }}"></script>
-    {% block javascripts %}{% endblock %}
+    {% endblock %}
     
 </body>
 

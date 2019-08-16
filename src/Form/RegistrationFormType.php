@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'constraints' => [
-                    new Email(['message' => 'Please enter a valid email address.'])
+                    new Email(['message' => 'Veuillez entrer une adresse e-mail valide'])
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -32,24 +32,32 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer un mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password'],
-                'invalid_message' => 'Your password does not match the confirmation.'
+                'invalid_message' => 'Les deux mots de passe ne sont pas identiques'
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => "Vous devez accepter nos conditions d'utilisation",
+                    ]),
+                ],
+            ])
+            ->add('agreePrivacy', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => "Vous devez accepter notre politique de confidentialité",
                     ]),
                 ],
             ])

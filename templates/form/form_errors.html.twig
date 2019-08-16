@@ -1,0 +1,7 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% for error in errors %}
+            <div class="text-danger px-1" style="font-size:12px;"><i class="fas fa-times mr-2"></i>{{ error.message }}</div>
+        {% endfor %}
+    {% endspaceless %}
+{% endblock %}

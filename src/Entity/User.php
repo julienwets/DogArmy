@@ -14,7 +14,7 @@ use Serializable;
 /**
  * @Vich\Uploadable
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Un compte possédant cette adresse e-mail existe déja")
  */
 class User implements UserInterface, Serializable
 {

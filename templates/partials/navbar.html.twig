@@ -1,0 +1,71 @@
+<div id="navbar-main" class="navbar-top  navbar-dark bg-dark border-bottom">
+    <div class="container px-0">
+        <div class="navbar-nav align-items-center">
+            <div class="d-none d-lg-inline-block">
+                <img alt="Dog Army Logo" src="{{ asset('img/logo.png') }}" style="max-width:60px">
+            </div>
+
+            {% if app.user %}
+            <div class="ml-auto">
+                <ul class="nav">
+                    <div class="row">
+                        <li class="nav-item my-auto">
+                            <a href="#" class="nav-link" data-action="omnisearch-open" data-target="#omnisearch" style="color:white!important;"><i class="fas fa-search"></i>Liste des membres</a>
+                        </li>
+                        {# <li class="nav-item">
+                        <a class="nav-link" href="pages/shop/checkout-cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    </li> #}
+                        <li class="nav-item dropdown" id="user-menu">
+                            <a class="nav-link pr-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="row ml-2">
+                                    <i class="fas fa-user-circle fa-2x"></i>
+                                    <i class="fas fa-caret-down my-auto"></i>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(29px, 39px, 0px);">
+                                <h6 class="dropdown-header">User menu</h6>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user"></i>Account
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <span class="float-right badge badge-primary">4</span>
+                                    <i class="fas fa-envelope"></i>Messages
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cog"></i>Settings
+                                </a>
+                                <div class="dropdown-divider" role="presentation"></div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-sign-out-alt"></i>Sign out
+                                </a>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            {% else %}
+            <div class="ml-auto">
+                <ul class="nav">
+                    <div class="row">
+                        <li class="nav-item my-auto mr-2">
+                            <a href="/login" class="nav-link" >Connexion</a>
+                        </li>
+                        <li>
+                            <a href="https://themes.getbootstrap.com/product/purpose-website-ui-kit/" target="_blank" class="btn btn-sm btn-white rounded-pill btn-icon rounded-pill d-none d-lg-inline-flex" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Go to Bootstrap Themes">
+                                <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
+                                <span class="btn-inner--text">Inscription</span>
+                            </a>
+                        </li>
+                        {# <li class="nav-item">
+                        <a class="nav-link" href="pages/shop/checkout-cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    </li> #}
+                        
+                    </div>
+                </ul>
+            </div>
+
+            {% endif %}
+        
+        </div>
+    </div>
+</div>
