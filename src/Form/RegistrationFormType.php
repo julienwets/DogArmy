@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -44,6 +45,15 @@ class RegistrationFormType extends AbstractType
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Confirm Password'],
                 'invalid_message' => 'Les deux mots de passe ne sont pas identiques'
+            ])
+            ->add('zipCode', TextType::class, [
+                'constraints' => [
+                    new notBlank(['message' => 'Veuillez entrer un code postal valide']),
+                    new Length(['min' => 4,
+                                'max' => 4,
+                                'exactMessage' => 'Veuillez entrer un code postal valide'
+                                ])
+                ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,

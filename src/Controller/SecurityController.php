@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
         }
 
         // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        $error = 'Échec de la connexion. Veuillez vérifier vos identifiants.';
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 

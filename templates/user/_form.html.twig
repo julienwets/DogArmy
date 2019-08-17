@@ -1,4 +1,48 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+ {{ form_start(form) }}
+ <div class="row">
+     <div class="col-md-6">
+         <div class="form-group">
+             {{ form_row(form.zipCode)}}
+         </div>
+         <div class="form-group">
+              <legend class="form-control-label required">J'habite dans</legend>
+             {{ form_widget(form.homeType) }}
+         </div>
+         <div class="form-group">
+             <legend class="form-control-label required">Je suis disponible :</legend>
+             {{ form_widget(form.availableOn) }}
+         </div>
+         <div class="form-group">
+             <legend class="form-control-label required">Je préfère les chiens de cette taille :</legend>
+             {{ form_widget(form.dogSize) }}
+         </div>
+         <div class="form-group">
+             <legend class="form-control-label required">Autres préférences</legend>
+             {{ form_widget(form.otherPreferences) }}
+         </div>
+     </div>
+     <div class="col-md-6">
+         <div class="form-group">
+             {{form_row(form.imageFile) }}
+         </div>
+         <div class="form-group">
+             <legend class="form-control-label required">Dans ma maison, il y a :</legend>
+             {{ form_widget(form.homeDetails) }}
+         </div>
+         <div class="form-group">
+             <legend class="form-control-label required">Les jours où je travaille, mon/mes chien(s) :</legend>
+             {{ form_widget(form.duringWork) }}
+         </div>
+     </div>
+ </div>
+
+ 
+
+ <div class="pt-3 mt-3 delimiter-top text-center">
+     <button type="submit" class="btn btn-sm btn-primary">{{ button_label|default('Save') }}</button>
+     <a href=" {{ path('profil') }}" class="text-muted ml-3">Annuler</a>
+ </div>
+ {{ form_end(form) }}
+
+ {% block javascripts %}
+ {% endblock %}

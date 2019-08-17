@@ -106,6 +106,11 @@ class User implements UserInterface, Serializable
      */
     private $dogs;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $zipCode;
+
     public function __toString()
     {
         return (string) $this->getEmail();
@@ -343,6 +348,18 @@ class User implements UserInterface, Serializable
                 $dog->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
 
         return $this;
     }

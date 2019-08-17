@@ -6,29 +6,46 @@
     <title>
         {% block title %}Dog Army{% endblock %}
     </title>
-    <link rel="stylesheet" href="{{ asset('css/purpose.min.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('libs/font-awesome/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/purpose.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/animate/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
 
 <body>
-    {% block header %}
+    <div class="main-content">
+        {% block header %}
         {% include "partials/navbar.html.twig" %}
-    {% endblock %}
+        {% endblock %}
+        
+        {% block flashes %}
+            {% for key, message in app.flashes('success') %}
+            <div class="flashMessages" data-success="{{ message }}"></div>
+            {% endfor %}
+        {% endblock %}
 
-    {% block body %}{% endblock %}
+        {% block body %}{% endblock %}
 
-    {% block footer %}
+
+        {% block footer %}
         {% include "partials/footer.html.twig" %}
-    {% endblock %}
+        {% endblock %}
 
+    </div>
     {% block javascripts %}
     {# jquery, bootstrap, popper, in-view and sticky-kit #}
     <script src="{{ asset('js/purpose.core.js') }}"></script>
     {# Purpose JS #}
     <script src="{{ asset('js/purpose.min.js') }}"></script>
-    {% endblock %}
+    {# Notify #}
+    <script src="{{ asset('libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     
+    <script src="{{ asset('js/util/flashes.js') }}"></script>
+
+
+    {% endblock %}
 </body>
 
 </html>
