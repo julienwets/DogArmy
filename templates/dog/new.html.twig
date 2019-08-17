@@ -1,66 +1,69 @@
 {% extends 'account/index.html.twig' %}
+{% form_theme form 'form/form_errors.html.twig' %}
 
 {% block title %}New Dog{% endblock %}
 
 {% block content %}
 <h1>Enregistrement de votre chien</h1>
- {{ form_start(form) }}
- <div class="row">
-     <div class="col-md-6">
-         <div class="form-group">
-             {{ form_row(form.name)}}
-             {{ form_errors(form.name)}}
-         </div>
-         <div class="form-group">
-             <legend class="form-control-label required">Naissance</legend>
-             {{ form_widget(form.birthDate) }}
-             {{ form_errors(form.birthDate)}}
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <legend class="form-control-label required">Nom</legend>
+            {{ form_widget(form.name)}}
+            {{ form_errors(form.name)}}
+        </div>
+        <div class="form-group">
+            <legend class="form-control-label required">Naissance</legend>
+            {{ form_widget(form.birthDate) }}
+            {{ form_errors(form.birthDate)}}
 
-         </div>
-         <div class="form-group">
-             <legend class="form-control-label required">Je suis :</legend>
-             {{ form_widget(form.gender) }}
-             {{ form_errors(form.gender)}}
+        </div>
+        <div class="form-group custom-radio">
+            <legend class="form-control-label required">Je suis :</legend>
+            {{ form_widget(form.gender) }}
+            {{ form_errors(form.gender)}}
+        </div>
+        <div class="form-group">
+            <legend class="form-control-label required">Détails :</legend>
+            {{ form_widget(form.details) }}
+            {{ form_errors(form.details)}}
+        </div>
+        <div class="form-group custom-radio">
+            <legend class="form-control-label required">Ma maison</legend>
+            {{ form_widget(form.houseTrained) }}
+            {{ form_errors(form.houseTrained)}}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group required">
+            <legend class="form-control-label required">Photo (.jpg ou .png)</legend>
+            {{form_widget(form.imageFile) }}
+            {% if form_errors(form.imageFile) %}
+            <div class="text-danger px-1" style="font-size:12px;"><i class="fas fa-times mr-2"></i>Assurez-vous d'utiliser une image de moins de 2Mo</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <legend class="form-control-label required">Ma description :</legend>
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description)}}
+        </div>
+        <div class="form-group">
+            <legend class="form-control-label required">Mon réseau :</legend>
+            {{ form_widget(form.instagram) }}
+            {{ form_errors(form.instagram)}}
+        </div>
+    </div>
+</div>
 
-         </div>
-         <div class="form-group">
-             <legend class="form-control-label required">Détails :</legend>
-             {{ form_widget(form.details) }}
-             {{ form_errors(form.details)}}
+<div class="pt-3 mt-3 delimiter-top text-center">
+    <button type="submit" class="btn btn-sm btn-primary">{{ button_label|default('Save') }}</button>
+    <a href=" {{ path('dog_index') }}" class="text-muted ml-3">Annuler</a>
 
-         </div>
-         <div class="form-group">
-             <legend class="form-control-label required">Ma maison</legend>
-             {{ form_widget(form.houseTrained) }}
-             {{ form_errors(form.houseTrained)}}
-         </div>
-     </div>
-     <div class="col-md-6">
-         <div class="form-group required">
-             {{form_row(form.imageFile) }}
-             {{ form_errors(form.imageFile)}}
-         </div>
-         <div class="form-group">
-             <legend class="form-control-label required">Ma description :</legend>
-             {{ form_widget(form.description) }}
-             {{ form_errors(form.description)}}
-         </div>
-         <div class="form-group">
-             <legend class="form-control-label required">Mon réseau :</legend>
-             {{ form_widget(form.instagram) }}
-             {{ form_errors(form.instagram)}}
-         </div>
-     </div>
- </div>
+</div>
+{{ form_end(form) }}
 
- <div class="pt-3 mt-3 delimiter-top text-center">
-     <button type="submit" class="btn btn-sm btn-primary">{{ button_label|default('Save') }}</button>
-     <a href=" {{ path('dog_index') }}" class="text-muted ml-3">Annuler</a>
-
- </div>
- {{ form_end(form) }}
-
- {% block javascripts %}
- {% endblock %}
+{% block javascripts %}
+{% endblock %}
 
 {% endblock %}

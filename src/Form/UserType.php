@@ -21,7 +21,7 @@ class UserType extends AbstractType
             ->add('imageFile', FileType::class, [
                 'label' => 'Photo de profil',
                 'label_attr' => ['class' => 'form-control-label'],
-                'required' => false
+                'required' => false,
             ])
             ->add('zipCode', TextType::class, [
                 'label' => 'Code postal',

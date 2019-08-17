@@ -62,6 +62,7 @@ class Dog
 
     /**
      * @Vich\UploadableField(mapping="dog_picture", fileNameProperty="image", size="imageSize")
+     * 
      * @var File
      */
     private $imageFile;

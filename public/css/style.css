@@ -39,7 +39,7 @@ input[type="email"] {
 }
 
 /* Checkbox */
-.form-check input[type="checkbox"]+.custom-control-label::after {
+.form-check input[type="checkbox"]+label.custom-control-label::after {
     color: #ffffff;
     position: absolute;
     left: -1.48rem;
@@ -54,9 +54,13 @@ input[type="email"] {
     box-shadow .15s ease-in-out;
 }
 
-input[type="radio"]+.custom-control-label::after {
+input[type="radio"]+label.custom-control-label::after {
     top: 0.45rem;
 }
+
+ input[type=radio] {
+    opacity: 0;
+ }
 
 .custom-control-label {
     -webkit-user-select: none;
@@ -70,6 +74,7 @@ input[type="radio"]+.custom-control-label::after {
 .form-check input[type="checkbox"]:checked+label:after {
     content: '✔';
     font-size: 0.6rem;
+    background-image: unset !important;
 }
 
 .custom-control-label::before {
@@ -102,6 +107,11 @@ div.vich-image img {
 
 div[data-notify="container"] span {
     margin-right: 5px;
+}
+
+button#reinitialiser {
+    margin: 0 !important;
+    padding-left: 12px;
 }
 
 /* ====================================================== */

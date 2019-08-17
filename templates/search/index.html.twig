@@ -4,44 +4,35 @@
 {% endblock %}
 
 {% block stylesheets %}
-<style>
-    .btn {
-        style="margin-rigth:15px"
-    }
-
-    .card-img-top {
-        width: 100%;
-    }
-</style>
-
 {% endblock %}
 {% block content %}
 {# <div id="listing-users"> #}
 {{ form_start(form, {'attr': {'id': 'form_search_user'}}) }}
 <h4 class="search">Filtres</h4>
 <div class="row">
-    <div class="col-4">
-        {{ form_row(form.homeType) }}
+    <div class="col-sm-6 custom-control custom-radio">
+        <legend class="col-form-label form-control-label">J'habite dans</legend>
+        {{ form_widget(form.homeType) }}
+        <legend class="col-form-label form-control-label mt-3">Les jours où je travaille, mon/mes chien(s)</legend>
+        {{ form_widget(form.duringWork) }}
     </div>
-    <div class="col-4">
-        {{ form_row(form.homeDetails) }}
+    <div class="col-sm-6 custom-control custom-checkbox">
+        <legend class="col-form-label form-control-label">Dans ma maison, il y a</legend>
+        {{ form_widget(form.homeDetails) }}
     </div>
-    <div class="col-4">
-        {{ form_row(form.duringWork) }}
-    </div>
-
-    <div class="col-lg-12 text-center">
-        <div class="btn-group">
-            {{ form_row(form.submit) }}
-            {{ form_row(form.reinitialiser) }}
+    <div class="col-lg-12 text-center mb-5">
+        <div class="pt-3 mt-3 delimiter-top text-center">
+            {{ form_widget(form.submit) }}
+            {{ form_widget(form.reinitialiser) }}
         </div>
+
     </div>
 </div>
 {{ form_end(form) }}
 {# </div> #}
 <div class="row">
     {% for user in users %}
-    <div class="card" style="width: 15rem;">
+    <!-- <div class="card" style="width: 15rem;">
         <img class="card-img-top" src="{{asset('uploads/user-pictures/' ~ user.imageName)}}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{user.email}}</h5>
@@ -55,7 +46,38 @@
             <a href="#" class="card-link">Disponibilité</a>
             <a href="#" class="card-link">Expé / Avis</a>
         </div>
+    </div> -->
+    <div class="col-sm-4">
+        <div class="card overflow-hidden" data-animate-hover="2">
+            <div class="overflow-hidden">
+                <div class="animate-this">
+                    <a href="#">
+                        <img alt="Image placeholder" src="{{asset('uploads/user-pictures/' ~ user.imageName)}}" class="card-img-top">
+
+                    </a>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                <h5 class="card-title mb-2">Bettie Mavis</h5>
+                <p class="text-muted mb-0">CEO</p>
+                <ul class="nav justify-content-center mt-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-github"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fab fa-dribbble"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+
 
     {% else %}
     <div class="card">
@@ -87,6 +109,7 @@
             searchUsers: function () {
 
                 Filter.reinitialisation.on('click', function () {
+                    $("select#homeType").val('');
                     $('input[type =radio]').val('');
                     $('input[type =checkbox]').val('');
                     window.location.reload();

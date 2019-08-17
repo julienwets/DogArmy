@@ -29,7 +29,7 @@ class DogController extends AbstractController
     public function index(DogRepository $dogRepository): Response
     {
         return $this->render('dog/index.html.twig', [
-            'dogs' => $dogRepository->findAll(),
+            'dogs' => $dogRepository->findBy(['user' => $this->getUser()->getId()]),
         ]);
     }
 
@@ -42,8 +42,6 @@ class DogController extends AbstractController
         $user = $this->tokenStorage->getToken()->getUser();
         $form = $this->createForm(DogType::class, $dog);
         $form->handleRequest($request);
-
-         
 
         if ($form->isSubmitted() && $form->isValid()) {
             $dog->setUser($user);
