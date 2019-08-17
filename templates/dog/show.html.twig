@@ -1,50 +1,70 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'account/index.html.twig' %}
 
-{% block title %}Dog{% endblock %}
+{% block title %}Mon/Mes chien(s){% endblock %}
 
-{% block body %}
-    <h1>Dog</h1>
+{% block content %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ dog.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ dog.name }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ dog.gender }}</td>
-            </tr>
-            <tr>
-                <th>BirthDate</th>
-                <td>{{ dog.birthDate ? dog.birthDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Details</th>
-                <td>{{ dog.details ? dog.details|join(', ') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Instagram</th>
-                <td>{{ dog.instagram }}</td>
-            </tr>
-            <tr>
-                <th>HouseTrained</th>
-                <td>{{ dog.houseTrained ? dog.houseTrained|join(', ') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ dog.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+<h1>Dog</h1>
+    <div class="card">
+        <img class="card-img-top"  src="{{ vich_uploader_asset(dog, 'imageFile') }}" alt="" width=15%/>
+        <div class="card-body">
+            <h5 class="card-title">{{ dog.name }}</h5>
+            <p class="card-text">{{ dog.gender }}, {{ dog.birthDate ? dog.birthDate|date('Y-m-d H:i:s') : '' }}</p>
+            <p class="card-text">{{ dog.details ? dog.details|join(', ') : '' }}</p>
+            <p class="card-text">{{ dog.description }}</p>
+        </div>
 
-    <a href="{{ path('dog_index') }}">back to list</a>
+        </div>
+            <p class="card-text">{{ dog.gender }}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">
+                <a href="{{ path('dog_edit', {'id': dog.id}) }}">edit</a>
+                {{ include('dog/_delete_form.html.twig') }}
+            </small>
+        </div>
+    </div>
+           
+{% endblock %} #}
 
-    <a href="{{ path('dog_edit', {'id': dog.id}) }}">edit</a>
 
-    {{ include('dog/_delete_form.html.twig') }}
+{% extends 'account/index.html.twig' %}
+
+{% block title %}Mon/Mes chien(s){% endblock %}
+{% block stylesheets %}
+<style>
+    .card-img-top {
+        width: auto;
+        height: 400px;
+        border-top-left-radius: calc(.375rem - 1px);
+        border-top-right-radius: calc(.375rem - 1px);
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<h1>Dog</h1>
+
+<div class="card">
+    <img class="card-img-top" src="{{ vich_uploader_asset(dog, 'imageFile') }}" alt="" />
+    <div class="card-body">
+        <h5 class="card-title">{{ dog.name }}</h5>
+        <p class="card-text">{{ dog.gender }}</p>
+        <p class="card-text">{{ dog.birthDate ? dog.birthDate|date('Y-m-d H:i:s') : '' }}</p>
+        <p class="card-text">{{ dog.details ? dog.details|join(', ') : '' }}</p>
+        <p class="card-text">{{ dog.houseTrained ? dog.houseTrained|join(', ') : '' }}</p>
+        <p class="card-text">{{ dog.description }}</p>
+        <p class="card-text">{{ dog.gender }}</p>
+        <p class="card-text">{{ dog.instagram }}</p>
+    </div>
+    <div class="card-footer">
+        <div class="btn-group">
+            <a class="btn btn-default" href="{{ path('dog_edit', {'id': dog.id}) }}">edit</a>
+            <a class="btn btn-default" href="{{ path('dog_index') }}">back to list</a>
+            {{ include('dog/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

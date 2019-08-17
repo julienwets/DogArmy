@@ -14,8 +14,7 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
             namer:
-                service: Vich\UploaderBundle\Naming\PropertyNamer
-                options: { property: 'id'}
+                service: Vich\UploaderBundle\Naming\UniqidNamer
 
         dog_picture:
             uri_prefix: /uploads/dog-pictures
@@ -24,5 +23,4 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
             namer:
-                service: Vich\UploaderBundle\Naming\PropertyNamer
-                options: { property: 'id'}
+                service: Vich\UploaderBundle\Naming\UniqidNamer

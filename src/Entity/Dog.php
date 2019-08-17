@@ -55,20 +55,16 @@ class Dog
     private $description;
 
     /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
-     * @Vich\UploadableField(mapping="dog_picture", fileNameProperty="imageName", size="imageSize")
-     * 
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="dog_picture", fileNameProperty="image", size="imageSize")
      * @var File
      */
     private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @var string
-     */
-    private $imageName;
 
     /**
      * @ORM\Column(type="integer")
@@ -179,30 +175,32 @@ class Dog
         return $this;
     }
 
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(File $image = null)
     {
-        $this->imageFile = $imageFile;
+        $this->imageFile = $image;
 
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
         }
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile()
     {
         return $this->imageFile;
     }
 
-    public function setImageName(?string $imageName): void
+    public function setImage($image)
     {
-        $this->imageName = $imageName;
+        $this->image = $image;
     }
 
-    public function getImageName(): ?string
+    public function getImage()
     {
-        return $this->imageName;
+        return $this->image;
     }
 
     public function setImageSize(?int $imageSize): void
@@ -223,6 +221,18 @@ class Dog
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
