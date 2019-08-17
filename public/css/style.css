@@ -39,7 +39,7 @@ input[type="email"] {
 }
 
 /* Checkbox */
-.form-check .custom-control-label::after {
+.form-check input[type="checkbox"]+.custom-control-label::after {
     color: #ffffff;
     position: absolute;
     left: -1.48rem;
@@ -49,6 +49,13 @@ input[type="email"] {
     content: '';
     background: no-repeat 50% / 50% 50%;
     cursor: pointer;
+    transition: background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+
+input[type="radio"]+.custom-control-label::after {
+    top: 0.45rem;
 }
 
 .custom-control-label {

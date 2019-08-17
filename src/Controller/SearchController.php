@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use App\Entity\User;
-use App\Entity\SearchUser;
-use App\Form\SearchUserType;
+use App\Entity\Search;
+use App\Form\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +34,8 @@ class SearchController extends AbstractController
     {
         $user = $this->getUser();
 
-        $search = new SearchUser();
-        $form = $this->createForm(SearchUserType::class, $search);
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
         $form->handleRequest($request);
 
         if ($form->get('submit')->isClicked()) {
@@ -54,7 +54,7 @@ class SearchController extends AbstractController
         );
 
 
-        return $this->render('search/user/index.html.twig', [
+        return $this->render('search/index.html.twig', [
             'users' => $users,
             'form' => $form->createView(),
         ]);

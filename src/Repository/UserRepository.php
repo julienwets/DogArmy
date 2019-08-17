@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Entity\SearchUser;
+use App\Entity\Search;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Query;
@@ -26,7 +26,7 @@ class UserRepository extends ServiceEntityRepository
      * @param $params
      * @return Query
      */
-    public function findFilter(SearchUser $params): Query
+    public function findFilter(Search $params): Query
     {
         $query = $this->createQueryBuilder('u');
 

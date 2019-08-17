@@ -72,9 +72,9 @@ class User implements UserInterface, Serializable
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $homeType = [];
+    private $homeType;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -92,9 +92,9 @@ class User implements UserInterface, Serializable
     private $homeDetails = [];
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $duringWork = [];
+    private $duringWork;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -116,100 +116,112 @@ class User implements UserInterface, Serializable
         return (string) $this->getEmail();
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
         $this->roles = ['ROLE_USER'];
         $this->organizers = new ArrayCollection();
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->email;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         // you *may* need a real salt depending on your encoder
         // see section on salt below
         return null;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    function setPassword($password) {
+    function setPassword($password)
+    {
         $this->password = $password;
     }
 
     // modifier la méthode getRoles
     public function getRoles()
     {
-        return $this->roles; 
+        return $this->roles;
     }
- 
+
     public function setRoles(array $roles)
     {
-        if (!in_array('ROLE_USER', $roles))
-        {
+        if (!in_array('ROLE_USER', $roles)) {
             $roles[] = 'ROLE_USER';
         }
-    
+
         $this->roles = $roles;
         return $this;
     }
 
-    function addRole($role) {
+    function addRole($role)
+    {
         $this->roles[] = $role;
     }
 
 
-    public function eraseCredentials() {
-        
-    }
+    public function eraseCredentials()
+    { }
 
     /** @see \Serializable::serialize() */
-    public function serialize() {
+    public function serialize()
+    {
         return serialize(array(
             $this->id,
             $this->email,
             $this->password,
-                // see section on salt below
-                // $this->salt,
+            // see section on salt below
+            // $this->salt,
         ));
     }
 
     /** @see \Serializable::unserialize() */
-    public function unserialize($serialized) {
-        list (
-                $this->id,
-                $this->email,
-                $this->password,
-                // see section on salt below
-                // $this->salt
-                ) = unserialize($serialized);
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 
-    function getId() {
+    function getId()
+    {
         return $this->id;
     }
 
-    function getEmail() {
+    function getEmail()
+    {
         return $this->email;
     }
 
-    function getPlainPassword() {
+    function getPlainPassword()
+    {
         return $this->plainPassword;
     }
 
-    function setId($id) {
+    function setId($id)
+    {
         $this->id = $id;
     }
 
-    function setEmail($email) {
+    function setEmail($email)
+    {
         $this->email = $email;
     }
 
-    function setPlainPassword($plainPassword) {
+    function setPlainPassword($plainPassword)
+    {
         $this->plainPassword = $plainPassword;
     }
 
@@ -249,12 +261,12 @@ class User implements UserInterface, Serializable
         return $this->imageSize;
     }
 
-    public function getHomeType(): ?array
+    public function getHomeType()
     {
         return $this->homeType;
     }
 
-    public function setHomeType(?array $homeType): self
+    public function setHomeType($homeType)
     {
         $this->homeType = $homeType;
 
@@ -297,16 +309,14 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function getDuringWork(): ?array
+    function getDuringWork()
     {
         return $this->duringWork;
     }
 
-    public function setDuringWork(?array $duringWork): self
+    function setDuringWork($duringWork)
     {
         $this->duringWork = $duringWork;
-
-        return $this;
     }
 
     public function getOtherPreferences(): ?array
@@ -363,6 +373,4 @@ class User implements UserInterface, Serializable
 
         return $this;
     }
-    
 }
-

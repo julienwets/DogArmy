@@ -47,7 +47,7 @@ class UserType extends AbstractType
                     return ['class' => 'custom-control-input'];
                 },
                 'expanded' => true,
-                'multiple' => true,
+                'multiple' => false,
             ])
             ->add('availableOn', ChoiceType::class, [
                 'label' => 'Je suis disponible:',
@@ -107,7 +107,7 @@ class UserType extends AbstractType
                     return ['class' => 'custom-control-input'];
                 },
                 'expanded' => true,
-                'multiple' => true,
+                'multiple' => false,
             ])
             ->add('otherPreferences', ChoiceType::class, [
                 'label' => 'Autres préférences',
