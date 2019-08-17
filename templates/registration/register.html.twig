@@ -1,11 +1,28 @@
+{# {% extends 'base.html.twig' %}
+{% block title %}Register{% endblock %}
+{% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+   <div class="row">
+       <div class="col-6 offset-3">
+           <div class="card bg-light">
+               <div class="card-body">
+                   <h1 class="text-center">Register</h1>
+                   {{ form_start(registrationForm) }}
+                       {{ form_row(registrationForm.email) }}
+                       {{ form_row(registrationForm.plainPassword) }}
+                       <button class="btn btn-primary btn-block">Register</button>
+                   {{ form_end(registrationForm) }}
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %} #}
+
 {% extends 'base.html.twig' %}
 {% form_theme registrationForm 'form/form_errors.html.twig' %}
 
 {% block title %}Inscription
-{% endblock %}
-
-{% block stylesheets %}
-<link rel="stylesheet" href="{{ asset("css/style.css") }}">
 {% endblock %}
 
 {% block header %}{% endblock %}
@@ -14,12 +31,12 @@
 <div class="main-content">
     <section class="min-vh-100 d-flex align-items-center">
         <div class="bg-img-holder top-0 right-0 col-lg-6 col-xl-8 zindex-100 d-none d-lg-block" data-bg-size="cover" data-bg-position="center">
-            <img alt="Dog Army" src="{{ asset('img/cover-photo.jpg') }}">
+            <img alt="Logo Dog Army" src="{{ asset('img/cover-photo.jpg') }}">
         </div>
         <div class="container-fluid py-5">
             <div class="row align-items-center mb-5">
                 <div class="col-sm-7 col-lg-6 col-xl-4 mx-auto ml-lg-0 text-center">
-                    <a href="/" title="Accueil">
+                    <a href="/">
                         <img src="{{ asset('img/logo.png') }}" alt="Logo Dog Army">
                     </a>
                 </div>
@@ -49,6 +66,7 @@
                                     </div>
                                     {{ form_errors(registrationForm.email) }}
                                 </div>
+<<<<<<< HEAD
                                 <div class="form-group">
                                     <label class="form-control-label">Code postal</label>
                                     <div class="input-group input-group-merge">
@@ -59,6 +77,8 @@
                                     </div>
                                     {{ form_errors(registrationForm.zipCode) }}
                                 </div>
+=======
+>>>>>>> ece01c9ea1917b8fa27aac4f696c39ed6c6c73d2
                                 <div class="form-group mb-4">
                                     <label class="form-control-label">Mot de passe</label>
                                     <div class="input-group input-group-merge">
@@ -80,7 +100,11 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                                         </div>
+<<<<<<< HEAD
                                         <input type="password" name="registration_form[plainPassword][second]" class=" form-control" id="input-password-confirm" placeholder="Confirmation du mot de passe">
+=======
+                                        <input type="password" name="registration_form[plainPassword][second]" class=" form-control" id="input-password-confirm" placeholder="Confirmation mot de passe">
+>>>>>>> ece01c9ea1917b8fa27aac4f696c39ed6c6c73d2
                                     </div>
                                     {{ form_errors(registrationForm.plainPassword.second) }}
                                 </div>
