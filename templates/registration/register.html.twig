@@ -66,7 +66,6 @@
                                     </div>
                                     {{ form_errors(registrationForm.email) }}
                                 </div>
-<<<<<<< HEAD
                                 <div class="form-group">
                                     <label class="form-control-label">Code postal</label>
                                     <div class="input-group input-group-merge">
@@ -77,8 +76,6 @@
                                     </div>
                                     {{ form_errors(registrationForm.zipCode) }}
                                 </div>
-=======
->>>>>>> ece01c9ea1917b8fa27aac4f696c39ed6c6c73d2
                                 <div class="form-group mb-4">
                                     <label class="form-control-label">Mot de passe</label>
                                     <div class="input-group input-group-merge">
@@ -100,22 +97,18 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                                         </div>
-<<<<<<< HEAD
                                         <input type="password" name="registration_form[plainPassword][second]" class=" form-control" id="input-password-confirm" placeholder="Confirmation du mot de passe">
-=======
-                                        <input type="password" name="registration_form[plainPassword][second]" class=" form-control" id="input-password-confirm" placeholder="Confirmation mot de passe">
->>>>>>> ece01c9ea1917b8fa27aac4f696c39ed6c6c73d2
                                     </div>
                                     {{ form_errors(registrationForm.plainPassword.second) }}
                                 </div>
                                 <div class="my-4">
                                     <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" name="registration_form[agreeTerms]" class=" custom-control-input" id="check-terms">
+                                        <input type="checkbox" name="registration_form[agreeTerms]" class="custom-control-input" id="check-terms">
                                         <label class="custom-control-label" for="check-terms">J'accepte les <a href="#">conditions d'utilisation</a></label>
                                         {{ form_errors(registrationForm.agreeTerms) }}
                                     </div>
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="registration_form[agreePrivacy]" class=" custom-control-input" id="check-privacy">
+                                        <input type="checkbox" name="registration_form[agreePrivacy]" class="custom-control-input" id="check-privacy">
                                         <label class="custom-control-label" for="check-privacy">J'accepte la <a href="#">politique de confidentialité</a></label>
                                         {{ form_errors(registrationForm.agreePrivacy) }}
                                     </div>

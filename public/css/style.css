@@ -48,7 +48,7 @@ input[type="email"] {
     background: no-repeat 50% / 50% 50%;
 }
 
-input[type="checkbox"]:checked+label:after {
+.form-check input[type="checkbox"]:checked+label:after {
     content: '✔';
     font-size: 0.8rem;
 }
@@ -78,4 +78,8 @@ div.vich-image img {
 #navbar-main .dropdown-menu {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
                 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+div[data-notify="container"] span {
+    margin-right: 5px;
 }

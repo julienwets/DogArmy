@@ -20,9 +20,11 @@
                         <div class="row row-grid align-items-center">
                             <div class="col-lg-8">
                                 <div class="media align-items-center">
+                                    {% if app.user.imageName %}
                                     <a href="#" class="avatar avatar-lg rounded-circle mr-3">
                                         <img alt="Avatar" src="{{ asset('uploads/user-pictures/' ~ app.user.imageName) }}">
                                     </a>
+                                    {% endif %}
                                     <div class="media-body">
                                         <h5 class="text-white mb-0">Heather Wright</h5>
                                         <div>
