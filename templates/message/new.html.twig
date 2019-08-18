@@ -1,0 +1,55 @@
+{% extends 'profile/layout.html.twig' %}
+
+{% block title %}New Message{% endblock %}
+
+{% block content %}
+    <h2 class="mb-5">Proposer votre aide à {{ user.email }} </h2>
+
+    <div class="card hover-shadow-lg hover-translate-y-n10">
+        <div class="card-header">
+            <div class="d-flex align-items-center">
+                <div class=" ml-3 w-100">
+                    <div class="row">
+                        <div class="col-md-4 pl-0 sitting-times">
+                            <span class="text-muted"><i class="far fa-clock mr-2"></i>{{ sitting.startTime ? sitting.startTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
+                        </div>
+                        <div class="col-md-4 text-center sitting-times">
+                            <i class="fas fa-angle-double-right"></i>
+                        </div>
+                        <div class="col-md-4 text-right sitting-times">
+                            <span class="text-muted"><i <i class="fas fa-clock mx-2"></i>{{ sitting.endTime ? sitting.endTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="avatar-group">
+                        {% for dog in sitting.dogs %}
+                        <img alt="Photo chien" src="{{ asset('uploads/dog-pictures/' ~ dog.image) }}" class="avatar  rounded-circle">
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div>
+                        <span class="d-block tinytext">Créée le {{ sitting.createdAt ? sitting.createdAt|localizeddate('long', 'none', app.request.locale , null , 'd MMMM Y ') : '' }}</span>
+                        <small class="h6 text-sm font-weight-bold">Description:</small>
+                        <p class="text-sm lh-160 mb-0 d-inline-block">{{ sitting.description }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    <div>
+                        <a href="#" class="text-sm font-weight-bold d-block">3 pending</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ include('message/_form.html.twig') }}
+
+    <a href="{{ path('user_show', {'id': user.id}) }}">Retour</a>
+{% endblock %}

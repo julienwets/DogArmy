@@ -47,7 +47,7 @@
                 <div>
                     <a href="#" class="text-sm font-weight-bold d-block">3 pending</a>
                 </div>
-                <button type="submit" class="btn btn-primary py-2 px-1 mt-2">Proposer mon aide</button>
+                <a href="{{ path('message_new', {'id': user.id, 'sittingId': sitting.id}) }}" class="btn btn-primary py-2 px-1 mt-2">Proposer mon aide</a>
             </div>
         </div>
     </div>
