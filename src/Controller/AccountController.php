@@ -21,7 +21,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/compte", name="compte", methods={"GET","POST"})
+     * @Route("/profil/edition", name="profile_edit", methods={"GET","POST"})
      */
     public function accountSettings(Request $request): Response
     {
@@ -44,7 +44,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="profil", methods={"GET"})
+     * @Route("/profil", name="profile", methods={"GET"})
      */
     public function publicProfile(): Response
     {

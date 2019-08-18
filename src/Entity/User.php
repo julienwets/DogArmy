@@ -111,6 +111,11 @@ class User implements UserInterface, Serializable
      */
     private $zipCode;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sitting", mappedBy="user", orphanRemoval=true)
+     */
+    private $sittings;
+
     public function __toString()
     {
         return (string) $this->getEmail();
@@ -122,6 +127,7 @@ class User implements UserInterface, Serializable
         // $this->salt = md5(uniqid('', true));
         $this->roles = ['ROLE_USER'];
         $this->organizers = new ArrayCollection();
+        $this->sittings = new ArrayCollection();
     }
 
     public function getUsername()
@@ -362,6 +368,14 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
+    public function hasDogs() {
+        if ($this->dogs->isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getZipCode(): ?string
     {
         return $this->zipCode;
@@ -370,6 +384,37 @@ class User implements UserInterface, Serializable
     public function setZipCode(string $zipCode): self
     {
         $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sitting[]
+     */
+    public function getSittings(): Collection
+    {
+        return $this->sittings;
+    }
+
+    public function addSitting(Sitting $sitting): self
+    {
+        if (!$this->sittings->contains($sitting)) {
+            $this->sittings[] = $sitting;
+            $sitting->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSitting(Sitting $sitting): self
+    {
+        if ($this->sittings->contains($sitting)) {
+            $this->sittings->removeElement($sitting);
+            // set the owning side to null (unless already changed)
+            if ($sitting->getUser() === $this) {
+                $sitting->setUser(null);
+            }
+        }
 
         return $this;
     }

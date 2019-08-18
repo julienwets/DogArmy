@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -86,6 +88,16 @@ class Dog
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sitting", mappedBy="dogs")
+     */
+    private $sittings;
+
+    public function __construct()
+    {
+        $this->sittings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -234,6 +246,34 @@ class Dog
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sitting[]
+     */
+    public function getSittings(): Collection
+    {
+        return $this->sittings;
+    }
+
+    public function addSitting(Sitting $sitting): self
+    {
+        if (!$this->sittings->contains($sitting)) {
+            $this->sittings[] = $sitting;
+            $sitting->addDog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSitting(Sitting $sitting): self
+    {
+        if ($this->sittings->contains($sitting)) {
+            $this->sittings->removeElement($sitting);
+            $sitting->removeDog($this);
+        }
 
         return $this;
     }

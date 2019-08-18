@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Sitting{% endblock %}
+
+{% block body %}
+    <h1>Edit Sitting</h1>
+
+    {{ include('sitting/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('sitting_index') }}">back to list</a>
+
+    {{ include('sitting/_delete_form.html.twig') }}
+{% endblock %}

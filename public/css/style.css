@@ -1,4 +1,13 @@
 /* ====================================================== */
+/* ======================= GENERAL ====================== */
+/* ====================================================== */
+
+.tinytext {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+/* ====================================================== */
 /* ======================= NAVBAR ======================= */
 /* ====================================================== */
 
@@ -50,17 +59,17 @@ input[type="email"] {
     background: no-repeat 50% / 50% 50%;
     cursor: pointer;
     transition: background-color .15s ease-in-out,
-    border-color .15s ease-in-out,
-    box-shadow .15s ease-in-out;
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
 }
 
 input[type="radio"]+label.custom-control-label::after {
     top: 0.45rem;
 }
 
- input[type=radio] {
+input[type=radio] {
     opacity: 0;
- }
+}
 
 .custom-control-label {
     -webkit-user-select: none;
@@ -121,4 +130,17 @@ button#reinitialiser {
 .header-account-page {
     height: unset !important;
     padding-top: 5em !important;
+}
+
+@media screen and (max-width : 768px) {
+    .account-body .sitting-times {
+        text-align: center !important;
+        margin: 0 auto !important;
+        padding-left: 15px !important;
+    }
+
+    .account-body .sitting-times i {
+        margin-left : .5rem;
+    }
+
 }
