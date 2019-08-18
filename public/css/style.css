@@ -127,10 +127,10 @@ button#reinitialiser {
 /* ======================= ACCOUNT ====================== */
 /* ====================================================== */
 
-.header-account-page {
+/* .header-account-page {
     height: unset !important;
     padding-top: 5em !important;
-}
+} */
 
 @media screen and (max-width : 768px) {
     .account-body .sitting-times {

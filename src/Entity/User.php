@@ -116,6 +116,11 @@ class User implements UserInterface, Serializable
      */
     private $sittings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user", orphanRemoval=true)
+     */
+    private $messages;
+
     public function __toString()
     {
         return (string) $this->getEmail();
@@ -128,6 +133,7 @@ class User implements UserInterface, Serializable
         $this->roles = ['ROLE_USER'];
         $this->organizers = new ArrayCollection();
         $this->sittings = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getUsername()
@@ -413,6 +419,37 @@ class User implements UserInterface, Serializable
             // set the owning side to null (unless already changed)
             if ($sitting->getUser() === $this) {
                 $sitting->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
             }
         }
 
