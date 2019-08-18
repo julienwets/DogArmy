@@ -47,6 +47,14 @@
             </div>
         </div>
     </div>
+    
+    {% for message in sitting.messages %}
+
+    <span>{{message.description}}</span>
+    <span>{{message.user.email}}</span>
+
+    <br>
+    {% endfor %}
 
 
     {{ include('message/_form.html.twig') }}

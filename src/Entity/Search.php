@@ -29,6 +29,11 @@ class Search
     private $duringWork;
 
     /**
+     * @var bool|null
+     */
+    private $needsHelp = false;
+
+    /**
      * @return null|string
      */
     public function getEmail()
@@ -76,5 +81,17 @@ class Search
     function setDuringWork($duringWork)
     {
         $this->duringWork = $duringWork;
+    }
+
+    public function getNeedsHelp(): ?bool
+    {
+        return $this->needsHelp;
+    }
+
+    public function setNeedsHelp(bool $needsHelp): self
+    {
+        $this->needsHelp = $needsHelp;
+
+        return $this;
     }
 }

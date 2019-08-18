@@ -121,6 +121,11 @@ class User implements UserInterface, Serializable
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $needsHelp = false;
+
     public function __toString()
     {
         return (string) $this->getEmail();
@@ -452,6 +457,18 @@ class User implements UserInterface, Serializable
                 $message->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNeedsHelp(): ?bool
+    {
+        return $this->needsHelp;
+    }
+
+    public function setNeedsHelp(bool $needsHelp): self
+    {
+        $this->needsHelp = $needsHelp;
 
         return $this;
     }

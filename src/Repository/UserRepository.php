@@ -4,10 +4,12 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Search;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Entity\Sitting;
 use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,9 +19,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    private $tokenStorage;
+
+    public function __construct(RegistryInterface $registry, TokenStorageInterface $tokenStorage)
     {
         parent::__construct($registry, User::class);
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -55,15 +60,16 @@ class UserRepository extends ServiceEntityRepository
             $query->andWhere('u.duringWork = :duringWork')
                 ->setParameter('duringWork', $params->getDuringWork());
         }
+        
+        if (!empty($params->getNeedsHelp())) {
+            $query->andWhere('u.needsHelp = :needsHelp')
+                ->setParameter('needsHelp', $params->getNeedsHelp());
+            }
 
-        // if (!empty($params->getDuringWork())) {
-
-        //     $query->andWhere('u.duringWork Like :duringWork')
-        //         ->setParameter('duringWork', '%'.implode('; ', $params->getDuringWork()).'%');
-        // }
-
-        // dump($params->getDuringWork());
-
+        //Hide current user from member list
+        $user = $this->tokenStorage->getToken()->getUser();
+        $query->andWhere('u.id != :id')
+            ->setParameter('id', $user->getId());
 
         $query->orderBy('u.email', 'ASC');
         $resultat = $query
@@ -90,49 +96,18 @@ class UserRepository extends ServiceEntityRepository
             $sql .= ' u.disponibility =' . $params['disponibility'];
         }
 
-        // if (isset($params['homeDetails']) and !empty($params['homeDetails'])) {
-        //     $sql .= ' u.homeDetails ='.$params['homeDetails'] ;
-        // }
         if (isset($params['duringWork']) and !empty($params['duringWork'])) {
             $sql .= ' u.duringWork =' . $params['duringWork'];
         }
 
-        // if (isset($params['duringWork']) and !empty($params['duringWork'])) {
-        //     $sql .= ' u.duringWork ='.$params->getDuringWork() ;
-        // }
+        
+        if (isset($params['needsHelp']) and !empty($params['needsHelp'])) {
+            $sql .= ' u.needsHelp =' . $params['needsHelp'];
+        }
 
         $statement = $conn->executeQuery($sql);
         $fetchedIds = $statement->fetchAll();
 
         return $fetchedIds;
     }
-
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

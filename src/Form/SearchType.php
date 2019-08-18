@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -74,6 +75,13 @@ class SearchType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'required' => false
+            ])
+            ->add('needsHelp', CheckboxType::class, [
+                'label' => "Membres qui ont besoin d'aide",
+                'label_attr' => ['class' => 'custom-control-label'],
+                'attr' => ['class' => 'custom-control-input'],
+                'required' => false
+
             ]);
     }
 

@@ -21,10 +21,19 @@ class MessageController extends AbstractController
     /**
      * @Route("/message", name="message_index", methods={"GET"})
      */
-    public function index(MessageRepository $messageRepository): Response
+    public function index(MessageRepository $messageRepository, SittingRepository $sittingRepository): Response
     {
+        $sittings = [];
+        $messages = $messageRepository->findBy(['user' => $this->getUser()]);
+        foreach ($messages as $message) {
+            $sittings[] = $message->getSitting()->getId();
+        }
+        $sittings = array_unique($sittings);
+        $sittings = $sittingRepository->findBy(['id' => $sittings]);
+
         return $this->render('message/index.html.twig', [
-            'messages' => $messageRepository->findAll(),
+            'messages' => $messages,
+            'sittings' => $sittings
         ]);
     }
 
@@ -47,7 +56,8 @@ class MessageController extends AbstractController
 
             $this->addFlash('success', "Votre message a été envoyé avec succès !");
 
-            return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+            // return $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+            return $this->redirectToRoute('message_index');
         }
 
         return $this->render('message/new.html.twig', [

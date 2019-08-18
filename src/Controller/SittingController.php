@@ -42,6 +42,7 @@ class SittingController extends AbstractController
     public function new(Request $request): Response
     {
         $sitting = new Sitting();
+        $user = $this->getUser();
         $form = $this->createForm(SittingType::class, $sitting);
         $form->handleRequest($request);
 
@@ -55,7 +56,8 @@ class SittingController extends AbstractController
                 ]);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $sitting->setUser($this->getUser());
+            $sitting->setUser($user);
+            $user->setNeedsHelp(true);
             $entityManager->persist($sitting);
             $entityManager->flush();
 
@@ -93,11 +95,17 @@ class SittingController extends AbstractController
     /**
      * @Route("/{id}", name="sitting_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Sitting $sitting): Response
+    public function delete(Request $request, Sitting $sitting, SittingRepository $sittingRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$sitting->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($sitting);
+
+            $sittings = $sittingRepository->findBy(['user' => $this->getUser() ]);
+            if (count($sittings) == 1) {
+                $this->getUser()->setNeedsHelp(false);
+            }
+
             $entityManager->flush();
         }
 
