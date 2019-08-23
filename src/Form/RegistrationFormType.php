@@ -21,6 +21,17 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('firstname', TextType::class, [
+                'constraints' => [
+                     new Length([
+                        'max' => 25,
+                        'maxMessage' => 'Votre nom ne peut pas comporter plus de {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'min' => 2,
+                        'minMessage' => 'Votre nom doit faire au moins {{ limit }} caractères'
+                    ]),
+                ]
+            ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email(['message' => 'Veuillez entrer une adresse e-mail valide'])

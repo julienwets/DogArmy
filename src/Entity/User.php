@@ -126,6 +126,11 @@ class User implements UserInterface, Serializable
      */
     private $needsHelp = false;
 
+    /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private $firstname;
+
     public function __toString()
     {
         return (string) $this->getEmail();
@@ -469,6 +474,18 @@ class User implements UserInterface, Serializable
     public function setNeedsHelp(bool $needsHelp): self
     {
         $this->needsHelp = $needsHelp;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }
