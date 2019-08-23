@@ -11,9 +11,9 @@
     {% endif %}
 </div>
 
-    {% for sitting in sittings %}
+{% for sitting in sittings %}
 
-<div class="card hover-shadow-lg hover-translate-y-n10">
+<div class="card hover-shadow">
     <div class="card-header">
         <div class="d-flex align-items-center">
             <div class=" ml-3 w-100">
@@ -58,10 +58,10 @@
 </div>
 {% for message in sitting.messages %}
 
-        <span>{{message.description}}</span>
-        <span>{{message.user.email}}</span>
-        <a href="{{path('message_new', {'id': app.user.id, 'sittingId': sitting.id}) }}" class="btn btn-primary">Répondre</a>
-        <br>
+<span>{{message.description}}</span>
+<span>{{message.user.email}}</span>
+<a href="{{path('message_new', {'id': app.user.id, 'sittingId': sitting.id}) }}" class="btn btn-primary">Répondre</a>
+<br>
 {% endfor %}
 
 {% else %}
