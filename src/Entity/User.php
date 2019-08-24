@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Serializable;
 
 /**
  * @Vich\Uploadable
@@ -43,9 +44,14 @@ class User implements UserInterface, Serializable
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="user_picture", fileNameProperty="imageName", size="imageSize")
-     * 
+     * @Assert\File(
+     *     maxSize = "2M",
+     *     maxSizeMessage ="Votre image ne peut pas dépasser 2Mo",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Votre image doit être au format .jpg ou .png"
+     *      )
      * @var File
      */
     private $imageFile;
@@ -163,7 +169,7 @@ class User implements UserInterface, Serializable
         return $this->password;
     }
 
-    function setPassword($password)
+    public function setPassword($password)
     {
         $this->password = $password;
     }
@@ -184,14 +190,13 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    function addRole($role)
+    public function addRole($role)
     {
         $this->roles[] = $role;
     }
 
-
     public function eraseCredentials()
-    { }
+    {}
 
     /** @see \Serializable::serialize() */
     public function serialize()
@@ -211,38 +216,38 @@ class User implements UserInterface, Serializable
         list(
             $this->id,
             $this->email,
-            $this->password,
+            $this->password
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    function getEmail()
+    public function getEmail()
     {
         return $this->email;
     }
 
-    function getPlainPassword()
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
-    function setId($id)
+    public function setId($id)
     {
         $this->id = $id;
     }
 
-    function setEmail($email)
+    public function setEmail($email)
     {
         $this->email = $email;
     }
 
-    function setPlainPassword($plainPassword)
+    public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
     }
@@ -331,12 +336,12 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    function getDuringWork()
+    public function getDuringWork()
     {
         return $this->duringWork;
     }
 
-    function setDuringWork($duringWork)
+    public function setDuringWork($duringWork)
     {
         $this->duringWork = $duringWork;
     }
@@ -384,7 +389,8 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function hasDogs() {
+    public function hasDogs()
+    {
         if ($this->dogs->isEmpty()) {
             return true;
         } else {

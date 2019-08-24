@@ -4,23 +4,25 @@
         <div class="form-group">
             <legend class="form-control-label required">Date de début</legend>
             {{ form_widget(form.startTime) }}
+            {{ form_errors(form.startTime) }}
         </div>
         <div class="form-group">
             <legend class="form-control-label required">Chien(s) concerné(s)</legend>
             {{ form_widget(form.dogs) }}
-                 <div class="text-danger px-1" style="font-size:12px;"><i class="fas fa-times mr-2"></i>Vous devez enregistrer un chien avant de demander de l'aide</div>
-
-            
+            {{ form_errors(form.dogs) }}
+                 <!-- <div class="text-danger px-1" style="font-size:12px;"><i class="fas fa-times mr-2"></i>Vous devez enregistrer un chien avant de demander de l'aide</div> -->
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <legend class="form-control-label required">Date de fin</legend>
             {{ form_widget(form.endTime) }}
+            {{ form_errors(form.endTime) }}
         </div>
         <div class="form-group">
             <legend class="form-control-label required">Description</legend>
             {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
         </div>
     </div>
 

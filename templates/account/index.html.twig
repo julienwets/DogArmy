@@ -42,10 +42,12 @@
                         </div>
                     </div>
                 </div>
+
                 {% block content %}{% endblock %}
+
             </div>
             {% block submenu %}
-                {% include "account/_submenu.html.twig" %}
+            {% include "account/_submenu.html.twig" %}
             {% endblock %}
         </div>
     </div>

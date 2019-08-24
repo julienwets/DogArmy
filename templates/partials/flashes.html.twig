@@ -1,0 +1,6 @@
+{% for key, message in app.flashes('success') %}
+<div class="flashSuccess" data-success="{{ message }}"></div>
+{% endfor %}
+{% for key, message in app.flashes('danger') %}
+<div class="flashDanger" data-danger="{{ message }}"></div>
+{% endfor %}

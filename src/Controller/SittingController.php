@@ -49,7 +49,7 @@ class SittingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             if ($data->getDogs()->isEmpty()) {
-                $this->addFlash('danger', "Vous devez enregistrer un chien avant de demander de l'aide");
+                $this->addFlash('danger', "Votre demande d'aide doit concerner un chien. L'avez-vous ajouté à votre profil ?");
                 return $this->redirectToRoute('sitting_new', [
                     'sitting' => $sitting,
                     'form' => $form->createView(),

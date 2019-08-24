@@ -48,7 +48,7 @@ class DogType extends AbstractType
             ])
             ->add('birthDate', DateType::class, [
                 'widget' => 'single_text',
-                'input' => 'datetime'
+                'input' => 'datetime',
             ])
             ->add('details', ChoiceType::class, [
                 'label' =>  "Je",
@@ -81,7 +81,12 @@ class DogType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('description', TextareaType::class, []);
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'data-toggle' => 'autosize',
+                    'rows' => 5
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

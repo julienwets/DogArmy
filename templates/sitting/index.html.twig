@@ -36,7 +36,7 @@
             <div class="col-sm-3">
                 <div class="avatar-group">
                     {% for dog in sitting.dogs %}
-                    <img alt="Photo chien" src="{{ asset('uploads/dog-pictures/' ~ dog.image) }}" class="avatar  rounded-circle">
+                    <img alt="Photo chien" src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar  rounded-circle">
                     {% endfor %}
                 </div>
             </div>
@@ -67,10 +67,11 @@
 {% else %}
 <div class="jumbotron">
     {% if userHasNoDogs %}
-    <p class="lead">Vous devez ajouter un chien à votre compte afin de demander de l'aide aux autres utilisateurs !</p>
+    <p class="lead">Vous devez ajouter un chien à votre compte afin de demander de l'aide aux autres utilisateurs.</p>
+    <p class="txt-black">Ne vous en faites pas, cela ne prendra qu'une minute.</p>
     <a class="btn btn-primary" href="{{ path('dog_new') }}" role="button">Ajouter mon chien</a>
     {% else %}
-    <p class="lead">Ici, vous demander de l'aide aux autres membres et avec un peu de chance, l'un d'eux pourra vous venir en aide !</p>
+    <p class="lead">Ici, vous pouvez demander de l'aide aux autres membres et avec un peu de chance, l'un d'eux pourra vous venir en aide !</p>
     <a class="btn btn-primary" href="{{ path('sitting_new') }}" role="button">Créer une demande</a>
     {% endif %}
 

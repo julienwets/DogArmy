@@ -19,15 +19,8 @@
         {% block header %}
         {% include "partials/navbar.html.twig" %}
         {% endblock %}
-        
-        {% block flashes %}
-            {% for key, message in app.flashes('success') %}
-            <div class="flashSuccess" data-success="{{ message }}"></div>
-            {% endfor %}
-            {% for key, message in app.flashes('danger') %}
-            <div class="flashDanger" data-danger="{{ message }}"></div>
-            {% endfor %}
-        {% endblock %}
+
+        {% include "partials/flashes.html.twig" %}
 
         {% block body %}{% endblock %}
 
@@ -41,16 +34,16 @@
     {% block javascripts %}
     {# jquery, bootstrap, popper, in-view and sticky-kit #}
     <script src="{{ asset('js/purpose.core.js') }}"></script>
+    {# Purpose JS #}
+    <script src="{{ asset('js/purpose.min.js') }}"></script>
     {# Notify #}
     <script src="{{ asset('libs/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
     {# Flashes #}
     <script src="{{ asset('js/util/flashes.js') }}"></script>
-    {# Purpose JS #}
-    <script src="{{ asset('js/purpose.min.js') }}"></script>
     {% endblock %}
 
-    
-    
+
+
 </body>
 
 </html>

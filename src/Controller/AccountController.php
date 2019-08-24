@@ -34,7 +34,7 @@ class AccountController extends AbstractController
 
             $this->addFlash('success', 'Votre profil a été mis à jour avec succès');
 
-            return $this->redirectToRoute('compte');
+            return $this->redirectToRoute('profil');
         }
 
         return $this->render('user/edit.html.twig', [

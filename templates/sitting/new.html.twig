@@ -2,10 +2,20 @@
 
 {% block title %}Demander de l'aide{% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+{% endblock %}
+
 {% block content %}
-    <h1>Demander de l'aide</h1>
+<h1>Demander de l'aide</h1>
 
-    {{ include('sitting/_form.html.twig') }}
+{{ include('sitting/_form.html.twig') }}
 
 
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('libs/jquery-mask/jquery.mask.min.js') }}"></script>
+<script src="{{ asset('libs/autosize/autosize.min.js') }}"></script>
 {% endblock %}
