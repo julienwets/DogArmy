@@ -13,56 +13,7 @@
 
 {% for sitting in sittings %}
 
-<div class="card hover-shadow">
-    <div class="card-header">
-        <div class="d-flex align-items-center">
-            <div class=" ml-3 w-100">
-                <div class="row">
-                    <div class="col-md-4 pl-0 sitting-times">
-                        <span class="text-muted"><i class="far fa-clock mr-2"></i>{{ sitting.startTime ? sitting.startTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
-                    </div>
-                    <div class="col-md-4 text-center sitting-times">
-                        <i class="fas fa-angle-double-right"></i>
-                    </div>
-                    <div class="col-md-4 text-right sitting-times">
-                        <span class="text-muted"><i <i class="fas fa-clock mx-2"></i>{{ sitting.endTime ? sitting.endTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="avatar-group">
-                    {% for dog in sitting.dogs %}
-                    <img alt="Photo chien" src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar  rounded-circle">
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div>
-                    <span class="d-block tinytext">Créée le {{ sitting.createdAt ? sitting.createdAt|localizeddate('long', 'none', app.request.locale , null , 'd MMMM Y ') : '' }}</span>
-                    <small class="h6 text-sm font-weight-bold">Description:</small>
-                    <p class="text-sm lh-160 mb-0 d-inline-block">{{ sitting.description }}</p>
-                </div>
-            </div>
-            <div class="col-sm-2 text-right">
-                <div>
-                    <a href="#" class="text-sm font-weight-bold d-block">3 pending</a>
-                </div>
-                {{ include('sitting/_delete_form.html.twig') }}
-            </div>
-        </div>
-    </div>
-</div>
-{% for message in sitting.messages %}
-
-<span>{{message.description}}</span>
-<span>{{message.user.email}}</span>
-<a href="{{path('message_new', {'id': app.user.id, 'sittingId': sitting.id}) }}" class="btn btn-primary">Répondre</a>
-<br>
-{% endfor %}
+{% include "sitting/sittings.html.twig" %}
 
 {% else %}
 <div class="jumbotron">
@@ -80,4 +31,9 @@
 
 
 
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('libs/autosize/autosize.min.js') }}"></script>
+    {{ parent() }}
 {% endblock %}

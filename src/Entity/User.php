@@ -9,7 +9,7 @@ use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -45,13 +45,13 @@ class User implements UserInterface, Serializable
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="user_picture", fileNameProperty="imageName", size="imageSize")
      * @Assert\File(
      *     maxSize = "2M",
      *     maxSizeMessage ="Votre image ne peut pas dépasser 2Mo",
      *     mimeTypes = {"image/png", "image/jpeg"},
      *     mimeTypesMessage = "Votre image doit être au format .jpg ou .png"
      *      )
+     * @Vich\UploadableField(mapping="user_picture", fileNameProperty="imageName", size="imageSize")
      * @var File
      */
     private $imageFile;

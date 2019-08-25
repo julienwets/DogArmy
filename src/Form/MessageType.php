@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MessageType extends AbstractType
@@ -16,9 +18,14 @@ class MessageType extends AbstractType
         $builder
             ->add('description', TextareaType::class, [
                 'attr' => [
-                    'cols' => '5',
-                    'rows' => '5'
+                    'rows' => '1',
+                    'data-toggle' => 'autosize',
+                    'placeholder' => 'Écrire un message',
+                    'class' => 'form-control',
+                    'minlength' => '5',
+                    'maxlength' => '400',
                 ],
+                'required' => false,
             ])
             ;
     }
@@ -27,6 +34,7 @@ class MessageType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Message::class,
+            'csrf_protection' => false,
         ]);
     }
 }

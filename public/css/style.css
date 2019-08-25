@@ -163,6 +163,29 @@ button#reinitialiser {
     padding-left: 12px;
 }
 
+.new-comment-form .btn {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+/* ====================================================== */
+/* ====================== SITTINGS ====================== */
+/* ====================================================== */
+
+.media-comment-bubble {
+    padding-bottom: 5px;
+}
+
+/* Affichage différent des commentaires du créateur d'une demande */
+.media-comment-bubble.left-top.bubble-right:after {
+    left: unset;
+    right: -16px;
+}
+
+
+
+
 /* ====================================================== */
 /* ======================= ACCOUNT ====================== */
 /* ====================================================== */
@@ -190,13 +213,32 @@ button#reinitialiser {
 /* ==================== MEDIA QUERIES =================== */
 /* ====================================================== */
 
+
+@media (max-width: 576px) {
+    .sitting-card .card-body {
+        padding: 1em;
+    }
+
+    .sitting-card .dog-pictures {
+        margin: 0 0 1em 0 !important;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .new-comment-form .btn {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+}
+
 @media(max-width:767px) {
 
     .header-account-page {
-        padding-top: 60px !important; 
-    }
+        padding-top: 60px !important;
     }
 }
+
 
 @media (min-width: 768px) {
 

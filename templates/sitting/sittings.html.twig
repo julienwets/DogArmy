@@ -1,0 +1,110 @@
+<div class="card hover-shadow-lg sitting-card">
+    <div class="card-header">
+        <div class="d-flex align-items-center">
+            <div class=" ml-3 w-100">
+                <div class="row">
+                    <div class="col-md-4 pl-0 sitting-times">
+                        <span class="text-muted"><i class="far fa-clock mr-2"></i>{{ sitting.startTime ? sitting.startTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
+                    </div>
+                    <div class="col-md-4 text-center sitting-times">
+                        <i class="fas fa-angle-double-right"></i>
+                    </div>
+                    <div class="col-md-4 text-right sitting-times">
+                        <span class="text-muted"><i <i class="fas fa-clock mx-2"></i>{{ sitting.endTime ? sitting.endTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <!-- Détails de la demande -->
+        <div class="row pb-2 mb-3 border-bottom">
+            
+            <div class="col-sm-10">
+                <div class="mb-2 d-flex justify-content-between">
+                    <div>
+                        <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
+                            <img src="{{ vich_uploader_asset(sitting.user, 'imageFile') }}" class="avatar avatar-sm rounded-circle" alt="Photo de {{sitting.user.firstname }}">
+                        </a>
+                        <span class="h6 text-sm font-weight-bold ml-1">{{ sitting.user.firstname }}</span>
+                    </div>
+                    <span class="tinytext txt-black my-auto">créée le {{ sitting.createdAt ? sitting.createdAt|localizeddate('long', 'none', app.request.locale , null , 'd MMMM Y ') : '' }}</span>
+                </div>
+                <p class="text-sm lh-160 mb-0 d-inline-block">{{ sitting.description }}</p>
+            </div>
+
+            <div class="col-sm-2 border-left">
+                <div class="{{ sitting.dogs|length > 1 ? 'avatar-group' : '' }} mt-3 text-center dog-pictures">
+                    {% for dog in sitting.dogs %}
+                    <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
+                        <img alt="Photo chien" src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle{{ sitting.dogs|length == 1 ? ' avatar-lg' : '' }}" data-toggle="tooltip" data-placement="bottom" title="{{ dog.name }}">
+                        <span class="h6 text-sm font-weight-bold mx-auto"></span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="w-100 text-right pr-2">
+                {% if sitting.user.id == app.user.id %}
+                {{ include('sitting/_delete_form.html.twig') }}
+                {% endif %}
+                {% if sitting.messages|length > 0 %}
+                <span class="text-sm font-weight-bold d-block txt-primary">{{ sitting.messages|length }} commentaire{{sitting.messages|length == 1 ? '' : 's'}}</span>
+                {% else %}
+                <span class="text-sm font-weight-bold d-block txt-primary">0 commentaire</span>
+                {% endif %}
+
+            </div>
+        </div>
+        <!-- Commentaires -->
+        <div class="comments">
+            {% for message in sitting.messages %}
+            {% if message.user.id != sitting.user.id %}
+            <!-- Commentaires des autres utilisateurs -->
+            <div class="media media-comment">
+                <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
+                    <img alt="Image placeholder" class="avatar rounded-circle shadow mr-4" src="{{ vich_uploader_asset(message.user, 'imageFile') }}">
+                </a>
+                <div class="media-body">
+                    <div class="media-comment-bubble left-top">
+                        <h6 class="mt-0">{{ message.user.firstname }}</h6>
+                        <p class="text-sm lh-160 mb-0">{{ message.description }}</p>
+                        <div class="icon-actions text-right">
+                            <span class="text-black text-sm">{{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , 'd MMMM à HH:mm ') : '' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% else %}
+            <!-- Commentaires du créateur de la demande -->
+            <div class="media media-comment">
+                <div class="media-body">
+                    <div class="media-comment-bubble left-top bubble-right">
+                        <h6 class="mt-0">{{ message.user.firstname }}</h6>
+                        <p class="text-sm lh-160 mb-0">{{ message.description }}</p>
+                        <div class="icon-actions text-right">
+                            <!-- Affichage de "aujourd'hui" si le commentaire a été créé aujourd'hui -->
+                            {% if message.createdAt|date('Y-m-D') == "now"|date('Y-m-D') %}
+                            <span class="text-black text-sm">Aujourd'hui à {{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , "HH:mm ") : '' }}</span>
+                            {% else %}
+                            <span class="text-black text-sm">{{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , 'd MMMM à HH:mm ') : '' }}</span>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
+                    <img alt="Image placeholder" class="avatar rounded-circle shadow ml-4" src="{{ vich_uploader_asset(message.user, 'imageFile') }}">
+                </a>
+            </div>
+            <br>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+        <!-- Formulaire nouveau commentaire (message) -->
+        <div class="new-comment-form">
+            {% include "message/_form.html.twig" %}
+        </div>
+    </div>
+</div>

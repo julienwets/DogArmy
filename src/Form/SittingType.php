@@ -33,7 +33,8 @@ class SittingType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'attr' => ['cols' => '5',
-                            'rows' => '5'
+                            'rows' => '5',
+                            'minlength' => '20',
                         ],
             ])
             ->add('dogs', EntityType::class, [

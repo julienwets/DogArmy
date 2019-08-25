@@ -8,8 +8,8 @@
                     <!-- Salute + Small stats -->
                     <div class="row align-items-center mb-4">
                         <div class="col-lg-8 col-xl-5 mb-4 mb-md-0">
-                            <span class="h2 mb-0 text-white d-block">Morning, Heather</span>
-                            <span class="text-white">Have a nice day!</span>
+                            <span class="h2 mb-0 text-white d-block">Bonjour, {{ app.user.firstname }}</span>
+                            <span class="text-white">Comment allez-vous ?</span>
                         </div>
                         <div class="col-auto flex-fill d-none d-xl-block">
                             <ul class="list-inline row justify-content-lg-end mb-0">
@@ -45,9 +45,9 @@
                     </div>
                     <!-- Account navigation -->
                     <div class="d-flex">
-                        <a href="account-profile-public.html" class="btn btn-icon btn-group-nav shadow btn-neutral">
+                        <a href="{{ path('user_show', {'id' : app.user.id} ) }}" class="btn btn-icon btn-group-nav shadow btn-neutral">
                             <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
-                            <span class="btn-inner--text d-none d-md-inline-block">My Profile</span>
+                            <span class="btn-inner--text d-none d-md-inline-block">Mon profil</span>
                         </a>
                         <div class="btn-group btn-group-nav shadow ml-auto" role="group" aria-label="Basic example">
                             <div class="btn-group" role="group">

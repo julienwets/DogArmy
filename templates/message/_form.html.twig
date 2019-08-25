@@ -1,4 +1,21 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{% set form = formObject.createView %}
+{{ form_start(form, {'action': path('message_index', { 'sittingId': sitting.id })} ) }}
+
+<div class="media media-comment align-items-center">
+    <img alt="Image placeholder" class="avatar avatar-sm rounded-circle shadow mr-2 d-none d-sm-block" src="{{ vich_uploader_asset(app.user, 'imageFile') }}">
+    <div class="media-body">
+        {{ form_errors(form.description) }}
+        <div class="form-group mb-0">
+            <div class="input-group input-group-merge">
+                {{ form_widget(form.description) }}
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary" type="button">
+                        <span class="far fa-paper-plane"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
 {{ form_end(form) }}

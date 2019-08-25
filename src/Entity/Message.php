@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
@@ -31,6 +33,12 @@ class Message
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *   min= 5,
+     *   max = 400,
+     *   minMessage = "Votre commentaire doit faire plus de {{ limit }} caractères",
+     *   maxMessage = "Votre commentaire doit faire moins de {{ limit }} caractères",
+     *  )
      */
     private $description;
 
@@ -86,7 +94,7 @@ class Message
 
         return $this;
     }
-    
+
     /**
      * @return \DateTime
      */
