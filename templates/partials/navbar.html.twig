@@ -25,19 +25,25 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(29px, 39px, 0px);">
                                 <h6 class="dropdown-header">User menu</h6>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user"></i>Account
+                                <a class="dropdown-item" href="{{path('profil')}}">
+                                    <i class="fas fa-user fa-fw"></i>Profil
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{path('sitting_index')}}">
+                                    <i class="fas fa-heart fa-fw"></i>Demandes d'aide
+                                </a>
+                                <a class="dropdown-item" href="{{path('message_index')}}">
+                                    <i class="fas fa-comment-dots fa-fw"></i>Discussions
+                                </a>
+                                <!-- <a class="dropdown-item" href="#">
                                     <span class="float-right badge badge-primary">4</span>
                                     <i class="fas fa-envelope"></i>Messages
-                                </a>
+                                </a> -->
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cog"></i>Settings
+                                    <i class="fas fa-cog fa-fw"></i>Paramètres
                                 </a>
                                 <div class="dropdown-divider" role="presentation"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-sign-out-alt"></i>Sign out
+                                <a class="dropdown-item" href="{{path('app_logout')}}">
+                                    <i class="fas fa-sign-out-alt fa-fw"></i>Déconnexion
                                 </a>
                             </div>
                         </li>
