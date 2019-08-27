@@ -12,9 +12,6 @@
                         <li class="nav-item my-auto">
                             <a href="{{ path('search') }}" class="nav-link" style="color:white!important;"><i class="fas fa-search"></i>Liste des membres</a>
                         </li>
-                        {# <li class="nav-item">
-                        <a class="nav-link" href="pages/shop/checkout-cart.html"><i class="fas fa-shopping-cart"></i></a>
-                    </li> #}
                         <li class="nav-item dropdown" id="user-menu">
                             <a class="nav-link pr-3 py-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="row ml-2">
@@ -55,18 +52,14 @@
                 <ul class="nav">
                     <div class="row">
                         <li class="nav-item my-auto mr-2">
-                            <a href="/login" class="nav-link" >Connexion</a>
+                            <a href="{{path('app_login')}}" class="nav-link" >Connexion</a>
                         </li>
                         <li>
-                            <a href="/register" target="_blank" class="btn btn-sm btn-white rounded-pill btn-icon rounded-pill d-none d-lg-inline-flex">
+                            <a href="{{path('app_register')}}" class="btn btn-sm btn-primary rounded-pill btn-icon rounded-pill d-none d-lg-inline-flex">
                                 <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
                                 <span class="btn-inner--text">Inscription</span>
                             </a>
-                        </li>
-                        {# <li class="nav-item">
-                        <a class="nav-link" href="pages/shop/checkout-cart.html"><i class="fas fa-shopping-cart"></i></a>
-                    </li> #}
-                        
+                        </li>                
                     </div>
                 </ul>
             </div>
