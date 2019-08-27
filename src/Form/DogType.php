@@ -31,6 +31,7 @@ class DogType extends AbstractType
         $builder
             ->add('imageFile', FileType::class, [
                 'label' => 'Photo (.jpg ou .png)',
+                'required' => false,
             ])
             ->add('name', TextType::class, [])
             ->add('gender', ChoiceType::class, [
@@ -51,12 +52,12 @@ class DogType extends AbstractType
                 'input' => 'datetime',
             ])
             ->add('details', ChoiceType::class, [
-                'label' =>  "Je",
+                'label' =>  "Détails",
                 'label_attr' => ['class' => 'custom-control-label'],
                 'choices'  => [
-                    'Suis stérilisé(e)' => 'Suis stérilisé(e)',
-                    'Ne perds pas mes poils' => 'Ne perds pas mes poils',
-                    'Suis adopté' => 'Suis adopté',
+                    'Je suis stérilisé(e)' => 'Je suis stérilisé(e)',
+                    'Je ne perds pas mes poils' => 'Je ne perds pas mes poils',
+                    'Je suis adopté' => 'Je suis adopté',
                 ],
                 'choice_attr' => function () {
                     return ['class' => 'custom-control-input'];
@@ -68,7 +69,7 @@ class DogType extends AbstractType
                 'required' => false,
             ])
             ->add('houseTrained', ChoiceType::class, [
-                'label' =>  "Suis-je propre ?",
+                'label' =>  "Ai-je appris à être propre ?",
                 'label_attr' => ['class' => 'custom-control-label'],
                 'choices'  => [
                     'Oui - complètement' => 'Oui - complètement',
@@ -85,7 +86,7 @@ class DogType extends AbstractType
                 'attr' => [
                     'data-toggle' => 'autosize',
                     'rows' => 5
-                ]
+                ],
             ]);
     }
 

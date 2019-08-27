@@ -14,18 +14,14 @@
                 <span class="d-block text-muted mb-3">{{ user.zipCode }}</span>
                 <div class="avatar-group hover-avatar-ungroup mb-3">
                     {% for dog in user.dogs %}
-                    <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle" alt="{{dog.name}}" data-toggle="tooltip" data-placement="bottom" title="{{dog.name}}">
+                    <a href="{{dog.id}}">
+                        <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle" alt="{{dog.name}}" data-toggle="tooltip" data-placement="bottom" title="{{dog.name}}">
+                    </a>
                     {% endfor %}
                 </div>
                 <div class="actions d-flex justify-content-between mt-3 pt-3 px-5 delimiter-top">
-                    <a href="{{path('user_show', {'id': user.id}) }}" class="action-item">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <a href="#" class="action-item">
-                        <i class="fas fa-chart-pie"></i>
-                    </a>
-                    <a href="#" class="action-item text-danger">
-                        <i class="fas fa-trash-alt"></i>
+                    <a href="{{path('user_show', {'id': user.id}) }}" class="action-item mx-auto">
+                        <i class="fas fa-user fa-2x"></i>
                     </a>
                 </div>
             </div>

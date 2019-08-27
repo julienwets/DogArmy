@@ -1,0 +1,54 @@
+<div class="card mt-4 dog-card" id="{{dog.id}}">
+    <div class="card-body pt-4 pb-2">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <a href="{{ vich_uploader_asset(dog, 'imageFile') }}" data-fancybox data-caption="{{dog.name}}">
+                    <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" alt="Photo de {{dog.name}}" class="img-fluid rounded">
+                </a>
+                <h5 class="mt-2">{{dog.name}}</h5>
+            </div>
+            <div class="col-md-8 px-3">
+                <div>
+                    <div>
+                        <i class="fas fa-paw fa-fw mr-2"></i>Je suis {{dog.gender == 'Une femelle' ? 'une femelle agée' : 'un mâle agé'}} de
+                        {% set yearDiff = dog.birthDate.diff(date()).y %}
+                        {% if yearDiff == 1 %}
+                        {{ yearDiff }} an
+                        {% elseif yearDiff %}
+                        {{ yearDiff }} ans
+                        {% else %}
+                        {{ dog.birthDate.diff(date()).m }} mois
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="pt-3 mt-3 border-top">
+                    {% if 'Je suis adopté' in dog.details %}
+                    <div><i class="fas fa-life-ring fa-fw mr-2"></i>Je suis adopté{{ dog.gender == 'Une femelle' ? 'e' }}</div>
+                    {% endif %}
+
+                    {% if 'Je suis stérilisé(e)' in dog.details %}
+                    <div><i class="fas fa-check fa-fw mr-2"></i>Je suis stérilisé{{ dog.gender == 'Une femelle' ? 'e' }}</div>
+                    {% else %}
+                    <div><i class="fas fa-times fa-fw mr-2"></i>Je ne suis pas stérilisé{{ dog.gender == 'Une femelle' ? 'e' }}</div>
+                    {% endif %}
+
+                    {% if 'Je ne perds pas mes poils' in dog.details %}
+                    <div><i class="fas fa-info fa-fw mr-2"></i>Je ne perds pas mes poils</div>
+                    {% else %}
+                    <div><i class="fas fa-info fa-fw mr-2"></i>Je perds parfois des poils</div>
+                    {% endif %}
+
+                    <div class="mb-3"><i class="fas fa-life-ring fa-fw mr-2"></i>Je suis adopté{{ dog.gender == 'Une femelle' ? 'e' }}</div>
+
+                    <span class="text-dark">Ai-je appris à être propre ?</span>
+                    <div class="mb-3"><i class="fas fa-graduation-cap fa-fw mr-2"></i>{{dog.houseTrained}}</div>
+
+                    <span class="text-dark">À propos de moi</span>
+                    <div class="fs-14 font-weight-600 p-2">
+                        {{dog.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Vich\Uploadable
@@ -53,6 +56,12 @@ class Dog
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage = "Veuillez écrire une description d'au-moins 20 caractères",
+     *      max = 500,
+     *      maxMessage = "La description de votre chien ne peut pas dépasser 500 caractères"
+     *  )
      */
     private $description;
 
@@ -64,7 +73,8 @@ class Dog
 
     /**
      * @Vich\UploadableField(mapping="dog_picture", fileNameProperty="image", size="imageSize")
-     * 
+     * @Assert\NotBlank(message="Veuillez enregistrer une photo de votre chien.")
+     *
      * @var File
      */
     private $imageFile;

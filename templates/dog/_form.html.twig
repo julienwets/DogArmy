@@ -2,45 +2,47 @@
  <div class="row">
      <div class="col-md-6">
          <div class="form-group">
-             {{ form_row(form.name)}}
+             <legend class="form-control-label">Nom</legend>
+             {{ form_widget(form.name)}}
              {{ form_errors(form.name)}}
          </div>
          <div class="form-group">
-             <legend class="form-control-label required">Naissance</legend>
+             <legend class="form-control-label">Naissance</legend>
              {{ form_widget(form.birthDate) }}
              {{ form_errors(form.birthDate)}}
 
          </div>
          <div class="form-group custom-radio">
-             <legend class="form-control-label required">Je suis :</legend>
+             <legend class="form-control-label">Je suis :</legend>
              {{ form_widget(form.gender) }}
              {{ form_errors(form.gender)}}
 
          </div>
          <div class="form-group">
-             <legend class="form-control-label required">Détails :</legend>
+             <legend class="form-control-label">Détails :</legend>
              {{ form_widget(form.details) }}
              {{ form_errors(form.details)}}
 
          </div>
          <div class="form-group custom-radio">
-             <legend class="form-control-label required">Ma maison</legend>
+             <legend class="form-control-label">Ai-je appris à être propre ?</legend>
              {{ form_widget(form.houseTrained) }}
              {{ form_errors(form.houseTrained)}}
          </div>
      </div>
      <div class="col-md-6">
          <div class="form-group">
-             {{form_row(form.imageFile) }}
+             <legend class="form-control-label">Photo (.jpg ou .png)</legend>
+             {{form_widget(form.imageFile) }}
              {{ form_errors(form.imageFile)}}
          </div>
          <div class="form-group">
-             <legend class="form-control-label required">Ma description :</legend>
+             <legend class="form-control-label">Courte description à propos de moi</legend>
              {{ form_widget(form.description) }}
              {{ form_errors(form.description)}}
          </div>
          <div class="form-group">
-             <legend class="form-control-label required">Mon réseau :</legend>
+             <legend class="form-control-label">J'ai même un compte Instagram ! <small>(facultatif)</small></legend>
              {{ form_widget(form.instagram) }}
              {{ form_errors(form.instagram)}}
          </div>
@@ -53,6 +55,3 @@
 
  </div>
  {{ form_end(form) }}
-
- {% block javascripts %}
- {% endblock %}
