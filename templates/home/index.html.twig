@@ -2,34 +2,239 @@
 {% block title %}Question/Answer App
 {% endblock %}
 {% block body %}
-<div class="row">
-    <div class="col-10 offset-1">
-        <div class="card mb-3">
-            <div class="card-body bg-light">
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-6 text-center">
-                                0
-                                <br>
-                                <small>answers</small>
-                            </div>
-                            <div class="col-6 text-center">
-                                0
-                                <br>
-                                <small>views</small>
-                            </div>
-                        </div>
+
+
+
+<!-- Header -->
+<section class="slice slice-xl bg-gradient-dark" style="padding-bottom: 150px;">
+    <div class="container py-5 position-relative zindex-100">
+        <div class="row row-grid justify-content-around align-items-center">
+            <div class="col-lg-5">
+                <div class="text-center text-lg-left">
+                    <span class="badge badge-primary badge-pill">Dog Army</span>
+                    <h1 class="text-white h2 mt-4 mb-3">Fini de payer une fortune pour qu'on garde votre chien</h1>
+                    <p class="lead lh-180 text-white">Rencontrez des membres proches de chez vous et échangez du dog-sitting gratuitement</p>
+                    <div class="mt-6">
+                        <a href="{{path('app_register')}}" class="btn btn-primary btn-icon rounded-pill hover-translate-y-n3">
+                            <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
+                            <span class="btn-inner--text">C'est parti</span>
+                        </a>
                     </div>
-                    <div class="col-10">
-                        <h5 class="card-title">
-                            <a href="#">[Question Title Placeholder]</a>
-                        </h5>
-                        <p class="card-text text-muted small">asked by [User Placeholder] [Post Time Placeholder]</p>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="card bg-section-secondary mt-7 mb-0 py-4 px-4 shadow-lg">
+                    <div class="card-body">
+                        <h2 class="heading h3">
+                            Nous pensons comme vous
+                        </h2>
+                        <p class="lead lh-180 mt-4">Passer du temps avec un chien, c'est plutôt agréable quand on y pense ! C'est aussi l'occasion pour votre chien de rencontrer des partenaires de jeu</p>
+                        <ul class="list-unstyled mt-4">
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape icon-primary icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-user-friends"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">Faites de nouvelles rencontres</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape icon-warning icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-dog"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">Partagez l'amour des chiens</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape icon-success icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-handshake"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">Tout est 100% gratuit</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- SVG -->
+    <figure class="shape-container shape-position-bottom" style="height: 348.891px;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 1000 300" style="enable-background:new 0 0 1000 300;" xml:space="preserve" class="ie-shape-wave-1">
+            <path d="M 0 246.131 C 0 246.131 31.631 250.035 47.487 249.429 C 65.149 248.755 82.784 245.945 99.944 241.732 C 184.214 221.045 222.601 171.885 309.221 166.413 C 369.892 162.581 514.918 201.709 573.164 201.709 C 714.375 201.709 772.023 48.574 910.547 21.276 C 939.811 15.509 1000 24.025 1000 24.025 L 1000 300.559 L -0.002 300.559 L 0 246.131 Z"></path>
+        </svg>
+    </figure>
+</section>
+<!-- 3 colonnes -->
+<section class="slice slice-lg">
+    <div class="container">
+        <div class="row row-grid">
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="px-4 py-5">
+                        <img alt="Dog artwork" src="{{asset('img/homepage/dog1.png')}}" class="img-fluid" style="height:190px;">
+                    </div>
+                    <div class="px-4 pb-4">
+
+                        <h5>
+                            <a href="{{path('app_register')}}">Pour tous les chiens</a>
+                        </h5>
+                        <p class="text-muted">Petit ou grand, et peu importe son caractère, votre chien trouvera certainement des amis avec qui il aimera jouer.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="px-4 py-5">
+                        <img alt="Dog artwork" src="{{asset('img/homepage/dog2.png')}}" class="img-fluid" style="height:190px;">
+                    </div>
+                    <div class="px-4 pb-4">
+                        <h5>
+                            <a href="{{path('app_register')}}">Sans stress</a>
+                        </h5>
+                        <p class="text-muted">Le profil de chaque membre vous indiquera ses habitudes par rapport à son chien et ses préférences.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="px-4 py-5">
+                        <img alt="Dog artwork" src="{{asset('img/homepage/dog3.png')}}" class="img-fluid" style="height:190px;">
+                    </div>
+                    <div class="px-4 pb-4">
+                        <h5>
+                            <a href="{{path('app_register')}}">Simple et rapide</a>
+                        </h5>
+                        <p class="text-muted">Créer une demande de dog-sitting prend littéralement 30 secondes. Nous nous forçons de rendre l'utilisation du site la plus simple possible. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Photo Background -->
+<section class="slice slice-lg bg-cover bg-size--cover" style="background-image: url('{{asset("img/homepage/background.jpg")}}'); background-position: center bottom;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card py-5 px-4 box-shadow-3">
+                    <div class="card-body">
+                        <h6 class="h3">
+                            Nos membres sont à votre écoute
+                        </h6>
+                        <p class="lead lh-180 mt-4">Prenez-le temps de discuter avec nos utilisateurs, vous verrez, ils partagent la même passion des chiens que vous !</p>
+                        <div class="btn-container mt-5 text-center">
+                            <a href="{{path('app_register')}}" class="btn btn-primary rounded-pill">
+                                <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
+                                <span class="btn-inner--text">Inscription</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FAQ -->
+<section class="slice slice-lg bg-section-secondary">
+    <div class="container">
+        <div class="mb-5 text-center">
+            <h3 class=" mt-4">Questions fréquentes</h3>
+            <div class="fluid-paragraph mt-3">
+                <p class="lead lh-180">Une hésitation ? Nous avons sûrement la réponse à votre question.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6">
+                <div id="accordion-1" class="accordion accordion-spaced">
+                    <!-- Carte 1 -->
+                    <div class="card">
+                        <div class="card-header py-4 collapsed" id="heading-1-1" data-toggle="collapse" role="button" data-target="#collapse-1-1" aria-expanded="false" aria-controls="collapse-1-1">
+                            <h6 class="mb-0"><i class="fas fa-clock mr-3"></i>Faut-il attendre après s'être inscrit ?</h6>
+                        </div>
+                        <div id="collapse-1-1" class="collapse" aria-labelledby="heading-1-1" data-parent="#accordion-1">
+                            <div class="card-body">
+                                <p>Remplir votre profil et enregistrer votre chien sur le site prend littéralement deux minutes ! Munissez-vous d'une photo de votre chien, il faut tout de même que les autres membres sachent à quel genre de toutou ils auront affaire</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carte 2 -->
+                    <div class="card">
+                        <div class="card-header py-4" id="heading-1-2" data-toggle="collapse" role="button" data-target="#collapse-1-2" aria-expanded="false" aria-controls="collapse-1-2">
+                            <h6 class="mb-0"><i class="fas fa-dog mr-3"></i>Puis-je utiliser Dog Army en ayant plusieurs chiens ?</h6>
+                        </div>
+                        <div id="collapse-1-2" class="collapse" aria-labelledby="heading-1-2" data-parent="#accordion-1">
+                            <div class="card-body">
+                                <p>Bien sûr ! Lorsque vous introduisez une demande de dog-sitting, vous pouvez sélectionner un ou plusieurs chiens enregistrés sur votre compte.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div id="accordion-2" class="accordion accordion-spaced">
+                    <!-- Carte 3 -->
+                    <div class="card">
+                        <div class="card-header py-4" id="heading-2-1" data-toggle="collapse" role="button" data-target="#collapse-2-1" aria-expanded="false" aria-controls="collapse-2-1">
+                            <h6 class="mb-0"><i class="fas fa-hand-holding-heart mr-3"></i>Faut-il absolument que je garde d'autres chiens ?</h6>
+                        </div>
+                        <div id="collapse-2-1" class="collapse" aria-labelledby="heading-2-1" data-parent="#accordion-2">
+                            <div class="card-body">
+                                <p>Pour le moment, nous encourageons fortement chaque utilisateur à participer activement au bon fonctionnement de la plateforme. Un système de crédits (toujours 100% gratuit) sera mis en place si un problème lié à la participation des membres émerge.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carte 4 -->
+                    <div class="card">
+                        <div class="card-header py-4" id="heading-2-2" data-toggle="collapse" role="button" data-target="#collapse-2-2" aria-expanded="false" aria-controls="collapse-2-2">
+                            <h6 class="mb-0"><i class="fas fa-wallet mr-3"></i>Certains utilisateurs demandent-ils de l'argent ?</h6>
+                        </div>
+                        <div id="collapse-2-2" class="collapse" aria-labelledby="heading-2-2" data-parent="#accordion-2">
+                            <div class="card-body">
+                                <p>Absolument pas, les membres de Dog Army se rendent service mutuellement et ce, gratuitement. Nous insistons sur ce point car cela permet d'établir une relation de confiance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- CTA -->
+<section class="slice slice-lg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card bg-gradient-primary rounded shadow-lg border-0 text-center position-relative zindex-100">
+                    <div class="card-body p-5">
+                        <h3 class="text-white font-weight-400">Une communauté faite pour vous</h3>
+                        <div class="mt-4">
+                            <a href="{{path('app_register')}}" class="btn btn-white btn-icon rounded-pill px-4">
+                                <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
+                                <span class="btn-inner--text">Inscription</span>
+                            </a>
+                            <a href="{{path('app_login')}}" class="btn btn-link text-white">Connexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
 {% endblock %}
