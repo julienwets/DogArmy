@@ -1,11 +1,11 @@
 {% extends 'account/index.html.twig' %}
 
-{% block title %}Message index{% endblock %}
+{% block title %}Mes commentaires{% endblock %}
 
 {% block content %}
 
-{% for sitting in sittings %}
-<!-- Sittings -->
+{% for sitting in sittings if sitting.user.id != app.user.id %}
+
 {% include "sitting/sittings.html.twig" %}
 
 {% else %}
