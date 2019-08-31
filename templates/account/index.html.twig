@@ -14,7 +14,8 @@
     <div class="container">
         <div class="row row-grid ">
             <div class="col-lg-9 order-2">
-                <!-- Change avatar -->
+                <!-- CTA Ajouter mon chien -->
+                {% if app.user.dogs is empty %}
                 <div class="card bg-gradient-warning hover-shadow-lg  d-none d-lg-block">
                     <div class="card-body py-3">
                         <div class="row row-grid align-items-center">
@@ -22,26 +23,27 @@
                                 <div class="media align-items-center">
                                     {% if app.user.imageName %}
                                     <a href="#" class="avatar avatar-lg rounded-circle mr-3">
-                                        <img alt="Avatar" src="{{ asset('uploads/user-pictures/' ~ app.user.imageName) }}">
+                                        <img alt="Avatar" src="{{ vich_uploader_asset(app.user, 'imageFile') }}">
                                     </a>
                                     {% endif %}
                                     <div class="media-body">
-                                        <h5 class="text-white mb-0">Vous devez vous bientôt vous absenter ?</h5>
+                                        <h5 class="text-white mb-0">Vous n'avez pas encore ajouté votre chien</h5>
                                         <div>
-                                            <span class="text-white" style="font-size:16px">Un membre peut sûrement tenir compagnie à votre toutou favori !</span>
+                                            <span class="text-white" style="font-size:16px">Dites-nous en plus sur lui, ça ne prend que deux minutes !</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto flex-fill mt-4 mt-sm-0 text-sm-right">
-                                <a href="#" class="btn btn-sm btn-white rounded-pill btn-icon shadow">
-                                    <span class="btn-inner--icon"><i class="fas fa-heart"></i></span>
-                                    <span class="btn-inner--text">Demander de l'aide</span>
+                                <a href="{{ path('dog_new') }}" class="btn btn-sm btn-white rounded-pill btn-icon shadow">
+                                    <span class="btn-inner--icon"><i class="fas fa-dog"></i></span>
+                                    <span class="btn-inner--text">Ajouter mon chien</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
 
                 {% block content %}{% endblock %}
 
