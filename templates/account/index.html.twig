@@ -21,11 +21,13 @@
                         <div class="row row-grid align-items-center">
                             <div class="col-lg-8">
                                 <div class="media align-items-center">
-                                    {% if app.user.imageName %}
                                     <a href="#" class="avatar avatar-lg rounded-circle mr-3">
+                                    {% if app.user.imageName %}
                                         <img alt="Avatar" src="{{ vich_uploader_asset(app.user, 'imageFile') }}">
+                                        {% else %}
+                                        <img alt="Avatar" src="{{ asset('img/default-user-picture.jpg') }}">
+                                        {% endif %}
                                     </a>
-                                    {% endif %}
                                     <div class="media-body">
                                         <h5 class="text-white mb-0">Vous n'avez pas encore ajouté votre chien</h5>
                                         <div>

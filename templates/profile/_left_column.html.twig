@@ -1,11 +1,14 @@
 <div class="col-lg-4">
     <div data-toggle="sticky" data-sticky-offset="80" data-negative-margin=".card-profile-cover">
         <div class="card card-profile border-0">
-            <div class="card-profile-cover">
-                <!-- <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.email }}" class="card-img-top"> -->
-            </div>
+            <div class="card-profile-cover"></div>
             <a href="{{path('user_show', {'id': user.id}) }}" class="mx-auto">
+                {% if user.imageFile %}
                 <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
+                {% else %}
+                <img src="{{ asset('img/default-user-picture.jpg') }}" alt="{{ user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
+                {% endif %}
+
             </a>
             <div class="card-body p-3 pt-0 text-center">
                 <a href="{{path('user_show', {'id': user.id}) }}">
