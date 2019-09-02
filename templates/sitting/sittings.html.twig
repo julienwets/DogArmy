@@ -20,7 +20,7 @@
         <!-- Détails de la demande -->
         <div class="row pb-2 mb-3 border-bottom">
 
-            <div class="col-sm-10">
+            <div class="col-sm-9 col-md-10">
                 <div class="mb-2 d-flex justify-content-between">
                     <div>
                         <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
@@ -33,7 +33,7 @@
                 <p class="text-sm lh-160 mb-0 d-inline-block">{{ sitting.description }}</p>
             </div>
 
-            <div class="col-sm-2 border-left">
+            <div class="col-sm-3 col-md-2 border-left pt-2 pr-1">
                 <div class="{{ sitting.dogs|length > 1 ? 'avatar-group' : '' }} mt-3 text-center dog-pictures">
                     {% for dog in sitting.dogs %}
                     <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
@@ -48,9 +48,9 @@
                 {{ include('sitting/_delete_form.html.twig') }}
                 {% endif %}
                 {% if sitting.messages|length > 0 %}
-                <span class="text-sm font-weight-bold d-block txt-primary">{{ sitting.messages|length }} commentaire{{sitting.messages|length == 1 ? '' : 's'}}</span>
+                <span class="text-sm font-weight-bold d-block txt-primary mt-2">{{ sitting.messages|length }} commentaire{{sitting.messages|length == 1 ? '' : 's'}}</span>
                 {% else %}
-                <span class="text-sm font-weight-bold d-block txt-primary">0 commentaire</span>
+                <span class="text-sm font-weight-bold d-block txt-primary mt-2">0 commentaire</span>
                 {% endif %}
 
             </div>

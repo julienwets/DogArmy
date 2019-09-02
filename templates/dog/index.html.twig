@@ -2,6 +2,10 @@
 
 {% block title %}Mon/Mes chien(s){% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('libs/fancybox/jquery.fancybox.min.css') }}">
+{% endblock %}
+
 {% block content %}
 
 
@@ -17,4 +21,10 @@
 {% endfor %}
 
 
+{% endblock %}
+
+{% block javascripts %}
+{{ parent () }}
+<script src="{{ asset('libs/fancybox/jquery.fancybox.min.js') }}"></script>
+    
 {% endblock %}

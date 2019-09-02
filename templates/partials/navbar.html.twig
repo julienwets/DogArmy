@@ -1,21 +1,26 @@
 <div id="navbar-main" class="navbar-top  navbar-dark bg-transparent border-bottom">
     <div class="container px-0">
         <div class="navbar-nav align-items-center">
-            <div class="d-none d-lg-inline-block">
+
+            <a href="{{ path('app_home') }}" class="d-none d-lg-inline-block" style="color:white!important;">
                 <img alt="Dog Army Logo" src="{{ asset('img/logo.png') }}" style="max-width:60px">
-            </div>
+            </a>
+
 
             {% if app.user %}
             <div class="ml-auto">
                 <ul class="nav">
                     <div class="row ">
                         <li class="nav-item my-auto">
-                            <a href="{{ path('search') }}" class="nav-link" style="color:white!important;"><i class="fab fa-github"></i>Github</a>
+                            <a href="{{ path('app_home') }}" class="nav-link" style="color:white!important;"><i class="fas fa-home"></i>Accueil</a>
+                        </li>
+                        <li class="nav-item my-auto">
+                            <a href="https://github.com/jwets/DogArmy.git" target="_blank" class="nav-link" style="color:white!important;"><i class="fab fa-github"></i>Github</a>
                         </li>
                         <li class="nav-item dropdown" id="user-menu">
                             <a class="nav-link pr-3 py-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="row ml-2">
-                                    {% if app.user.imageFile %}
+                                    {% if app.user.imageFile is defined %}
                                     <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" class="avatar rounded-circle" alt="Votre photo">
                                     {% else %}
                                     <img src="{{ asset('img/default-user-picture.jpg') }}" class="avatar rounded-circle" alt="Votre photo">
@@ -26,7 +31,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(29px, 39px, 0px);">
                                 <h6 class="dropdown-header">User menu</h6>
-                                <a class="dropdown-item" href="{{path('profil')}}">
+                                <a class="dropdown-item" href="{{path('profile_edit')}}">
                                     <i class="fas fa-user fa-fw"></i>Profil
                                 </a>
                                 <a class="dropdown-item" href="{{path('sitting_index')}}">
@@ -56,20 +61,20 @@
                 <ul class="nav">
                     <div class="row">
                         <li class="nav-item my-auto mr-2">
-                            <a href="{{path('app_login')}}" class="nav-link" >Connexion</a>
+                            <a href="{{path('app_login')}}" class="nav-link">Connexion</a>
                         </li>
                         <li>
                             <a href="{{path('app_register')}}" class="btn btn-sm btn-primary rounded-pill btn-icon rounded-pill d-none d-lg-inline-flex">
                                 <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
                                 <span class="btn-inner--text">Inscription</span>
                             </a>
-                        </li>                
+                        </li>
                     </div>
                 </ul>
             </div>
 
             {% endif %}
-        
+
         </div>
     </div>
 </div>

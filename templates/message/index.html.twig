@@ -3,6 +3,8 @@
 {% block title %}Mes commentaires{% endblock %}
 
 {% block content %}
+<h1>Discussions</h1>
+<p class="text-muted">Vous retrouverez ici les demandes d'autres membres sur lesquelles vous avez laissé un message.</p>
 
 {% for sitting in sittings if sitting.user.id != app.user.id %}
 

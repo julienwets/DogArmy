@@ -2,7 +2,7 @@
 {{ form_start(form, {'action': path('message_index', { 'sittingId': sitting.id })} ) }}
 
 <div class="media media-comment align-items-center">
-    {% if app.user.imageFile %}
+    {% if app.user.imageFile is defined %}
     <img alt="Image placeholder" class="avatar avatar-sm rounded-circle shadow mr-2 d-none d-sm-block" src="{{ vich_uploader_asset(app.user, 'imageFile') }}">
     {% else %}
     <img alt="Image placeholder" class="avatar avatar-sm rounded-circle shadow mr-2 d-none d-sm-block" src="{{ asset('img/default-user-picture.jpg') }}">

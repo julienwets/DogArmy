@@ -22,10 +22,10 @@ class MessageType extends AbstractType
                     'data-toggle' => 'autosize',
                     'placeholder' => 'Écrire un message',
                     'class' => 'form-control',
-                    'minlength' => '5',
-                    'maxlength' => '400',
+                    'minlength' => 5,
+                    'maxlength' => 400,
                 ],
-                'required' => false,
+                'required' => true,
             ])
             ;
     }
