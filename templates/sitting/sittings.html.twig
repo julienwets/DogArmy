@@ -29,7 +29,11 @@
                 <div class="mb-2 d-flex justify-content-between">
                     <div>
                         <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
+                        {% if sitting.user.imageFile %}
                             <img src="{{ vich_uploader_asset(sitting.user, 'imageFile') }}" class="avatar avatar-sm rounded-circle" alt="Photo de {{sitting.user.firstname }}">
+                        {% else %}
+                            <img src="{{ asset('img/default-user-picture.jpg') }}" alt="{{ sitting.user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">                            
+                        {% endif %}
                         </a>
                         <span class="h6 text-sm font-weight-bold ml-1">{{ sitting.user.firstname }}</span>
                     </div>

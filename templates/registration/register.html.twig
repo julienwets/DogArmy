@@ -93,7 +93,7 @@
                                         </div>
                                         <input type="password" name="registration_form[plainPassword][first]" class="form-control" id="input-password" placeholder="Mot de passe" required>
                                         <div class="input-group-append">
-                                            <span class="input-group-text" onclick="showPassword()">
+                                            <span class="input-group-text show-password" onclick="showPassword()">
                                                 <i class="fas fa-eye"></i>
                                             </span>
                                         </div>
@@ -137,26 +137,6 @@
     </section>
 </div>
 {% endblock %}
-
-{#
-                                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                See https://symfony.com/doc/current/security/remember_me.html
-    
-                                <div class="checkbox mb-3">
-                                    <label>
-                                        <input type="checkbox" name="_remember_me"> Remember me
-                                    </label>
-                                </div>
-                             #}
-
-{# <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Log in
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div> #}
 
 {% block footer %}{% endblock %}
 

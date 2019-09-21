@@ -3,7 +3,7 @@
         <div class="card card-profile border-0">
             <div class="card-profile-cover"></div>
             <a href="{{path('user_show', {'id': user.id}) }}" class="mx-auto">
-                {% if user.imageFile is defined %}
+                {% if user.imageFile %}
                 <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
                 {% else %}
                 <img src="{{ asset('img/default-user-picture.jpg') }}" alt="{{ user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
@@ -17,7 +17,7 @@
                 <span class="d-block text-muted mb-3">{{ user.zipCode }}</span>
                 <div class="avatar-group hover-avatar-ungroup mb-3">
                     {% for dog in user.dogs %}
-                    <a href="{{dog.id}}">
+                    <a href="#">
                         <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle" alt="{{dog.name}}" data-toggle="tooltip" data-placement="bottom" title="{{dog.name}}">
                     </a>
                     {% endfor %}

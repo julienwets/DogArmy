@@ -168,6 +168,10 @@ button#reinitialiser {
     padding-right: 10px;
 }
 
+.show-password {
+    cursor: pointer;
+}
+
 
 
 /* ====================================================== */
@@ -176,7 +180,7 @@ button#reinitialiser {
 
 
 .dog-card i {
-    color : #e97b40;
+    color: #e97b40;
 }
 
 

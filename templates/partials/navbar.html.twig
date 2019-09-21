@@ -20,7 +20,7 @@
                         <li class="nav-item dropdown" id="user-menu">
                             <a class="nav-link pr-3 py-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="row ml-2">
-                                    {% if app.user.imageFile is defined %}
+                                    {% if app.user.imageFile %}
                                     <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" class="avatar rounded-circle" alt="Votre photo">
                                     {% else %}
                                     <img src="{{ asset('img/default-user-picture.jpg') }}" class="avatar rounded-circle" alt="Votre photo">
@@ -64,7 +64,7 @@
                             <a href="{{path('app_login')}}" class="nav-link">Connexion</a>
                         </li>
                         <li>
-                            <a href="{{path('app_register')}}" class="btn btn-sm btn-primary rounded-pill btn-icon rounded-pill d-none d-lg-inline-flex">
+                            <a href="{{path('app_register')}}" class="btn btn-sm btn-primary rounded-pill btn-icon rounded-pill d-inline-flex">
                                 <span class="btn-inner--icon"><i class="fas fa-paw"></i></span>
                                 <span class="btn-inner--text">Inscription</span>
                             </a>
