@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use DateTimeZone;
 use App\Entity\Message;
 use App\Entity\Sitting;
 use App\Form\MessageType;
 use App\Form\SittingType;
+use App\Form\SelectHelperType;
 use App\Repository\SittingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,6 +39,9 @@ class SittingController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
+        $selectForm = $this->createForm(SelectHelperType::class);
+        $selectForm->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $sittingId = $request->query->get('sittingId');
             $sitting = $sittingRepository->findOneBy(['id' => $sittingId]);
@@ -57,6 +62,7 @@ class SittingController extends AbstractController
             'sittings' => $sittingRepository->findBy(['user' => $this->getUser()]),
             'userHasNoDogs' => $userHasNoDogs,
             'formObject' => $form,
+            'selectFormObject' => $selectForm,
         ]);
     }
 
@@ -122,7 +128,9 @@ class SittingController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $sitting->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $sitting->setHelperUser(null);
             $entityManager->remove($sitting);
+            // dump($sitting);die();
 
             $sittings = $sittingRepository->findBy(['user' => $this->getUser()]);
             if (count($sittings) == 1) {

@@ -1,23 +1,28 @@
 <div class="card hover-shadow-lg sitting-card">
-    <div class="card-header">
+    <div class="card-header px-3">
         <div class="d-flex align-items-center">
             <div class=" ml-3 w-100">
                 <div class="row">
-                    <div class="col-md-4 pl-0 sitting-times">
-                        <span class="text-muted"><i class="far fa-clock mr-2"></i>{{ sitting.startTime ? sitting.startTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
+                    <div class="col-md-4 col-sm-5 pl-0 sitting-times">
+                        <span class="text-muted">
+                            <i class="far fa-clock mr-2"></i>
+                            {{ sitting.startTime ? sitting.startTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
                     </div>
-                    <div class="col-md-4 text-center sitting-times">
+                    <div class="col-md-4 col-sm-2 text-center sitting-times">
                         <i class="fas fa-angle-double-right"></i>
                     </div>
-                    <div class="col-md-4 text-right sitting-times">
-                        <span class="text-muted"><i <i class="fas fa-clock mx-2"></i>{{ sitting.endTime ? sitting.endTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
+                    <div class="col-md-4 col-sm-5 text-right sitting-times">
+                        <span class="text-muted">
+                            <i class="fas fa-clock mx-2"></i>
+                            {{ sitting.endTime ? sitting.endTime|localizeddate('long', 'none', app.request.locale , null , 'EEEE d MMMM HH:mm') : '' }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-body">
-        <!-- Détails de la demande -->
+    <div
+        class="card-body">
+        {# Détails de la demande #}
         <div class="row pb-2 mb-3 border-bottom">
 
             <div class="col-sm-9 col-md-10">
@@ -28,7 +33,8 @@
                         </a>
                         <span class="h6 text-sm font-weight-bold ml-1">{{ sitting.user.firstname }}</span>
                     </div>
-                    <span class="tinytext txt-black my-auto">créée le {{ sitting.createdAt ? sitting.createdAt|localizeddate('long', 'none', app.request.locale , null , 'd MMMM Y ') : '' }}</span>
+                    <span class="tinytext txt-black my-auto">créée le
+                        {{ sitting.createdAt ? sitting.createdAt|localizeddate('long', 'none', app.request.locale , null , 'd MMMM Y ') : '' }}</span>
                 </div>
                 <p class="text-sm lh-160 mb-0 d-inline-block">{{ sitting.description }}</p>
             </div>
@@ -36,79 +42,228 @@
             <div class="col-sm-3 col-md-2 border-left pt-2 pr-1">
                 <div class="{{ sitting.dogs|length > 1 ? 'avatar-group' : '' }} mt-3 text-center dog-pictures">
                     {% for dog in sitting.dogs %}
-                    <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
-                        <img alt="Photo chien" src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle{{ sitting.dogs|length == 1 ? ' avatar-lg' : '' }}" data-toggle="tooltip" data-placement="bottom" title="{{ dog.name }}">
-                        <span class="h6 text-sm font-weight-bold mx-auto"></span>
-                    </a>
+                        <a href="{{ path('user_show', {'id' : sitting.user.id} ) }}">
+                            <img alt="Photo chien" src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle{{ sitting.dogs|length == 1 ? ' avatar-lg' : '' }}" data-toggle="tooltip" data-placement="bottom" title="{{ dog.name }}">
+                            <span class="h6 text-sm font-weight-bold mx-auto"></span>
+                        </a>
                     {% endfor %}
                 </div>
             </div>
-            <div class="w-100 text-right pr-2">
-                {% if sitting.user.id == app.user.id %}
-                {{ include('sitting/_delete_form.html.twig') }}
-                {% endif %}
-                {% if sitting.messages|length > 0 %}
-                <span class="text-sm font-weight-bold d-block txt-primary mt-2">{{ sitting.messages|length }} commentaire{{sitting.messages|length == 1 ? '' : 's'}}</span>
+            <div
+                class="col-sm-9 col-md-10">
+
+                {# Si le sitting n'a pas encore commencé #}
+                {% if date(sitting.startTime) > date() %}
+                    {% if sitting.user.id == app.user.id and sitting.state == 'requested' and sitting.helperUser.id is defined %}
+                        <div class="state-details p-2">
+                            <p class="text-muted m-0">
+                                <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>Vous avez demandé à
+                                <a href="{{path('user_show', { 'id' : sitting.helperUser.id }) }}">{{ sitting.helperUser.firstname}}</a>
+                                de vous venir en aide, veuillez attendre sa réponse.
+                            </p>
+                        </div>
+                    {% endif %}
+                    {# Si le sitting est en cours #}
+                {% elseif date() > date(sitting.startTime) and date() < date(sitting.endTime) %}
+                    {# <div class="state-details p-2">
+
+                        {% if sitting.state == 'confirmed' %}
+                            En cours confirmé
+                        {% else %}
+                            En cours pas confirmé
+                        {% endif %}
+                    </div> #}
+                    {# Si le sitting est dépassé #}
                 {% else %}
-                <span class="text-sm font-weight-bold d-block txt-primary mt-2">0 commentaire</span>
+                    <div class="state-details p-2">
+                        {# Si le sitting a bien eu lieu #}
+                        {% if sitting.state == 'confirmed' %}
+                        <i class="fas fa-check text-success"></i>
+                        Ce dog-sitting est terminé !
+                        {% if app.user == sitting.user %}
+                            {% endif %}
+                            {# Si personne ne s'est occupé du sitting #}
+                        {% else %}
+                            
+                            <p class="text-danger fs-14"><i class="fas fa-exclamation-triangle text-danger mr-2"></i>Cette demande est expirée.</p>
+                            {% if app.user == sitting.user %}
+                            {% endif %}
+
+                        {% endif %}
+                    </div>
                 {% endif %}
 
+
+                {# Affichage dynamique des infos de la demande en fonction de son statut #}
+                {# Si le sitting n'a pas encore commencé #}
+                {% if sitting.startTime > "now"|date %}
+
+                    {% if sitting.user.id == app.user.id and sitting.state == 'requested' and sitting.helperUser.id is defined %}
+                        <div class="state-details p-2">
+                            <p class="text-muted m-0">
+                                <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>Vous avez demandé à
+                                <a href="{{path('user_show', { 'id' : sitting.helperUser.id }) }}">{{ sitting.helperUser.firstname}}</a>
+                                de vous venir en aide, veuillez attendre sa réponse.</p>
+                        </div>
+                    {% endif %}
+                    {% if sitting.helperUser.id is defined and sitting.helperUser.id == app.user.id and sitting.state == "requested" %}
+                        <div class="state-details p-2">
+                            <p class="text-muted m-0">
+                                <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>
+                                {{sitting.user.firstname}}
+                                vous a choisi pour ce dog-sitting, veuillez confirmer.</p>
+                            {% set confirmForm = confirmFormObject.createView %}
+                            {{ form_start(confirmForm, {'attr' : { 'class' : 'form-group text-center confirm-form my-1'}, 'action': path('user_show', {'sittingId': sitting.id, 'id' : sitting.user.id })}) }}
+                            {{ form_widget(confirmForm.yes) }}
+                            {{ form_widget(confirmForm.no) }}
+                            {{ form_end(confirmForm) }}
+                        </div>
+                    {% endif %}
+                    {% if sitting.state == "confirmed" %}
+                        <div class="state-details p-2">
+                            <p class="text-muted m-0">
+                                <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>
+                                <a href="{{path('user_show', { 'id' : sitting.helperUser.id }) }}">{{ sitting.helperUser.firstname}}</a>
+                                s'occupe de ce dog-sitting !
+                            </p>
+                            {% if sitting.helperUser.id == app.user.id %}
+                                <p class="text-muted m-0">Vous pouvez contacter
+                                    {{ sitting.user.firstname }}
+                                    directement par e-mail :
+                                    <a href="mailto:{{sitting.user.email}}" class="m-0 txt-primary">{{sitting.user.email}}</a>
+                                </p>
+                            {% endif %}
+                            {% if sitting.user.id == app.user.id %}
+                                <p class="text-muted m-0">Vous pouvez contacter
+                                    {{ sitting.helperUser.firstname }}
+                                    directement par e-mail :
+                                    <a href="mailto:{{sitting.helperUser.email}}" class="m-0 txt-primary">{{sitting.helperUser.email}}</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {# Si l'utilisateur a été sélectionné par le créateur de la demande et a refusé #}
+                    {% if app.user.id in sitting.usersWhoDeclined %}
+                        <div class="state-details p-2">
+                            <p class="text-muted m-0">
+                                <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>
+                                Vous avez refusé la demande d'aide de
+                                {{sitting.user.firstname}}.</p>
+                        </div>
+                    {% endif %}
+                    {# Si le sitting est en cours #}
+                {% elseif sitting.state == 'confirmed' and sitting.startTime < "now"|date and sitting.endTime > "now"|date %}
+                    Sitting en cours et confirmé
+                    {# Si le sitting n'a pas été annulé et que la date de fin est dépassée #}
+                {% elseif sitting.state == 'confirmed' and sitting.endTime < "now"|date %}
+                    Sitting terminé et confirmé
+                    {# Si le sitting n'a pas été confirmé par les deux utilisateurs avant le début du sitting #}
+                {% else %}
+
+                    <div class="state-details p-2 background-danger">
+                        <p class="text-muted m-0">
+                            <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>
+                            Le sitting n'a pas été confirmé et sera fermé</p>
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+            <div class="col-sm-3 col-md-2 text-right p-0">
+                {% if sitting.user.id == app.user.id %}
+                    {{ include('sitting/_delete_form.html.twig') }}
+                {% endif %}
+                {% if sitting.messages|length > 0 %}
+                    <span class="text-sm font-weight-bold d-block txt-primary mt-2">{{ sitting.messages|length }}
+                        commentaire{{sitting.messages|length == 1 ? '' : 's'}}</span>
+                {% else %}
+                    <span class="text-sm font-weight-bold d-block txt-primary mt-2">0 commentaire</span>
+                {% endif %}
             </div>
         </div>
         <!-- Commentaires -->
         <div class="comments">
             {% for message in sitting.messages %}
-            {% if message.user.id != sitting.user.id %}
-            <!-- Commentaires des autres utilisateurs -->
-            <div class="media media-comment">
-                <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
-                    <img alt="Image placeholder" class="avatar rounded-circle shadow mr-4" src="{{ vich_uploader_asset(message.user, 'imageFile') }}">
-                </a>
-                <div class="media-body">
-                    <div class="media-comment-bubble left-top">
+                {% if message.user.id != sitting.user.id %}
+                    <!-- Commentaires des autres utilisateurs -->
+                    <div class="media media-comment">
                         <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
-                            <h6 class="mt-0">{{ message.user.firstname }}</h6>
+                            <img alt="Image placeholder" class="avatar rounded-circle shadow mr-4" src="{{ vich_uploader_asset(message.user, 'imageFile') }}">
                         </a>
-                        <p class="text-sm lh-160 mb-0">{{ message.description }}</p>
-                        <div class="icon-actions text-right">
-                            <span class="text-black text-sm">{{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , 'd MMMM à HH:mm ') : '' }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            {% else %}
-            <!-- Commentaires du créateur de la demande -->
-            <div class="media media-comment">
-                <div class="media-body">
-                    <div class="media-comment-bubble left-top bubble-right">
-                        <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
-                        <h6 class="mt-0">{{ message.user.firstname }}</h6>
-                        </a>
-                        <p class="text-sm lh-160 mb-0">{{ message.description }}</p>
-                        <div class="icon-actions text-right">
-                            <!-- Affichage de "aujourd'hui" si le commentaire a été créé aujourd'hui -->
-                            {% if message.createdAt|date('Y-m-D') == "now"|date('Y-m-D') %}
-                            <span class="text-black text-sm">Aujourd'hui à {{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , "HH:mm ") : '' }}</span>
-                            {% else %}
-                            <span class="text-black text-sm">{{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , 'd MMMM à HH:mm ') : '' }}</span>
-                            {% endif %}
+                        <div class="media-body">
+                            <div class="media-comment-bubble left-top">
+                                <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
+                                    <h6 class="mt-0">{{ message.user.firstname }}</h6>
+                                </a>
+                                <p class="text-sm lh-160 mb-0">{{ message.description }}</p>
+                                <div class="icon-actions text-right mt-2">
+                                    <span class="text-black text-sm text-primary" id="selectHelperButton">
+                                        {% if sitting.user.id == app.user.id %}
 
+                                            {% if message.user.id in sitting.usersWhoDeclined %}
+                                                <span class="text-danger fs-16 mr-2">Refusé</span>
+                                            {% endif %}
+                                            {% if message.user == sitting.helperUser %}
+
+                                                <span class="fa-stack mr-2">
+                                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                                    <i class="fas fa-star fa-stack-1x fa-inverse"></i>
+
+                                                </span>
+
+                                            {% endif %}
+
+                                            {% if sitting.state == 'open' %}
+                                                {% set selectForm = selectFormObject.createView %}
+                                                {{ form_start(selectForm, {'attr' : { 'class' : 'd-inline-block'}, 'action': path('user_show', { 'sittingId': sitting.id, 'helperUserId' : message.user.id, 'id' : sitting.user.id })}) }}
+                                                {{ form_widget(selectForm.selectHelper) }}
+                                                {{ form_end(selectForm) }}
+                                            {% endif %}
+                                        {% endif %}
+                                    </span>
+                                    <span class="text-black text-sm">{{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , 'd MMMM à HH:mm ') : '' }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
-                    <img alt="Image placeholder" class="avatar rounded-circle shadow ml-4" src="{{ vich_uploader_asset(message.user, 'imageFile') }}">
-                </a>
-            </div>
-            <br>
-            {% endif %}
+                    <br>
+                {% else %}
+                    <!-- Commentaires du créateur de la demande -->
+                    <div class="media media-comment">
+                        <div class="media-body">
+                            <div class="media-comment-bubble left-top bubble-right">
+                                <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
+                                    <h6 class="mt-0">{{ message.user.firstname }}</h6>
+                                </a>
+                                <p class="text-sm lh-160 mb-0">{{ message.description }}</p>
+                                <div
+                                    class="icon-actions text-right mt-2">
+                                    <!-- Affichage de "aujourd'hui" si le commentaire a été créé aujourd'hui -->
+                                    {% if message.createdAt|date('Y-m-D') == "now"|date('Y-m-D') %}
+                                        <span class="text-black text-sm">Aujourd'hui à
+                                            {{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , "HH:mm ") : '' }}</span>
+                                    {% else %}
+                                        <span class="text-black text-sm">{{ message.createdAt ? message.createdAt|localizeddate('short', 'none', app.request.locale , null , 'd MMMM à HH:mm ') : '' }}</span>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ path('user_show', {'id' : message.user.id} ) }}">
+                            <img alt="Image placeholder" class="avatar rounded-circle shadow ml-4" src="{{ vich_uploader_asset(message.user, 'imageFile') }}">
+                        </a>
+                    </div>
+                    <br>
+                {% endif %}
             {% endfor %}
 
         </div>
         <!-- Formulaire nouveau commentaire (message) -->
+        {% if date() < date(sitting.endTime) and sitting.state != 'confirmed' %}
         <div class="new-comment-form">
             {% include "message/_form.html.twig" %}
         </div>
+        {% endif %}
     </div>
 </div>

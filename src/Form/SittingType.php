@@ -9,7 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -23,13 +23,15 @@ class SittingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startTime', DateType::class, [
-                'widget' => 'single_text',
-                'input' => 'datetime'
+            ->add('startTime', DateTimeType::class, [
+                'widget' => 'single_text',   
+                'input' => 'datetime',
+                'view_timezone' => 'Europe/Brussels'
             ])
-            ->add('endTime', DateType::class, [
+            ->add('endTime', DateTimeType::class, [
                 'widget' => 'single_text',
-                'input' => 'datetime'
+                'input' => 'datetime',
+                'view_timezone' => 'Europe/Brussels'
             ])
             ->add('description', TextareaType::class, [
                 'attr' => ['cols' => '5',

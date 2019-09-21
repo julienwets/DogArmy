@@ -196,6 +196,27 @@ button#reinitialiser {
     right: -16px;
 }
 
+.media-comment .helper-star {
+    color: #ffff00;
+}
+
+span#selectHelperForm button {
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.state-details {
+    background-color: #eff2f7;
+    border-radius: 3px;
+}
+
+.confirm-form #confirm_sitting_request_no:hover {
+    background-color: #e97b40;
+    color: #fff;
+}
+
+
 
 
 

@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Message;
 use App\Entity\Sitting;
-use App\Entity\User;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use App\Repository\SittingRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\ConfirmSittingRequestType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  *
@@ -32,9 +33,14 @@ class MessageController extends AbstractController
         $sittings = array_unique($sittings);
         $sittings = $sittingRepository->findBy(['id' => $sittings]);
         $message = new Message();
+
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
+        $confirmForm = $this->createForm(ConfirmSittingRequestType::class);
+        $confirmForm->handleRequest($request);
+
+        // Formulaire d'ajout d'un message à une demande
         if ($form->isSubmitted() && $form->isValid()) {
             $sittingId = $request->query->get('sittingId');
             $sitting = $sittingRepository->findOneBy(['id' => $sittingId]);
@@ -52,10 +58,35 @@ class MessageController extends AbstractController
             return $this->redirectToRoute('message_index');
         }
 
+        // Formulaire de confirmation affiché chez le helper (oui/non)
+        if ($confirmForm->isSubmitted() && $confirmForm->isValid()) {
+            $sittingId = $request->query->get('sittingId');
+            $sitting = $sittingRepository->findOneBy(['id' => $sittingId]);
+
+            if ($confirmForm->get('yes')->isClicked()) {
+                $sitting->setState('confirmed');
+                $this->addFlash('success', "Votre confirmation a bien été prise en compte !");
+            } 
+
+            if ($confirmForm->get('no')->isClicked()) {
+                $sitting->setState('open');
+                $sitting->addUsersWhoDeclined($sitting->getHelperUser()->getId());
+                $sitting->setHelperUser(null);
+                $this->addFlash('success', "Votre réponse a bien été prise en compte, " . $sitting->getUser()->getFirstname() . " sera prévenu(e).");
+            }
+
+            $entityManager->persist($sitting);
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('message_index');
+        }
+
         return $this->render('message/index.html.twig', [
             'messages' => $messages,
             'sittings' => $sittings,
             'formObject' => $form,
+            'confirmFormObject' => $confirmForm,
         ]);
     }
 

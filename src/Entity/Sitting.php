@@ -63,10 +63,27 @@ class Sitting
      */
     private $messages;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $state;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     */
+    private $helperUser;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $usersWhoDeclined = []; 
+
+
     public function __construct()
     {
         $this->dogs = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->state = 'open';
     }
 
     public function getId(): ?int
@@ -202,4 +219,48 @@ class Sitting
 
         return $this;
     }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getHelperUser(): ?User
+    {
+        return $this->helperUser;
+    }
+
+    public function setHelperUser(?User $helperUser): self
+    {
+        $this->helperUser = $helperUser;
+
+        return $this;
+    }
+
+    public function getUsersWhoDeclined(): ?array
+    {
+        return $this->usersWhoDeclined;
+    }
+
+    public function setUsersWhoDeclined(?array $usersWhoDeclined): self
+    {
+        $this->usersWhoDeclined = $usersWhoDeclined;
+
+        return $this;
+    }
+
+    public function addUsersWhoDeclined(?int $usersWhoDeclined): self
+    {
+        $this->usersWhoDeclined[] = $usersWhoDeclined;
+
+        return $this;
+    }
+
 }
