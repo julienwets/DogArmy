@@ -20,15 +20,12 @@
             {{ form_widget(form.homeDetails) }}
             <hr class="my-3"/>
             {{ form_widget(form.needsHelp) }}
-
-
         </div>
         <div class="col-lg-12 text-center mb-5">
             <div class="pt-3 mt-3 delimiter-top text-center">
                 {{ form_widget(form.submit) }}
                 {{ form_widget(form.reinitialiser) }}
             </div>
-
         </div>
     </div>
     {{ form_end(form) }}
@@ -45,27 +42,21 @@
                                 {% else %}
                                     <img alt="Image placeholder" class="card-img-top" src="{{ asset('img/default-user-picture.jpg') }}">
                                 {% endif %}
+                                {% if user.needsHelp == 1 %}
+                                    <div class="card-img-overlay d-flex align-items-end p-2">
+                                        <div class="col text-right pr-0">
+                                            <i class="fas fa-life-ring fa-2x text-primary mr-1"></i>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </a>
+
                         </div>
                     </div>
                     <div class="card-body text-center p-2">
-                        <h5 class="card-title mb-2">{{ user.firstname }}</h5>
-
-                        {# <ul class="nav justify-content-center mt-3">
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link" href="#"><i class="fab fa-github"></i></a>
-                                                                                            </li>
-                                                                                            <li class="nav-item">
-                                                                                                <a class="nav-link" href="#"><i class="fab fa-dribbble"></i></a>
-                                                                                            </li>
-                                                                                        </ul> #}
-
+                        <a href="{{path('user_show', {'id' : user.id}) }}">
+                            <h5 class="card-title mb-2">{{ user.firstname }}</h5>
+                        </a>
                         <div class="avatar-group hover-avatar-ungroup mb-3">
                             {% for dog in user.dogs %}
                                 <a href="#">
@@ -74,10 +65,12 @@
                             {% endfor %}
                         </div>
 
+
                         <div class="text-center">
                             <i class="fas fa-map-marker-alt"></i>
                             <span class="text-muted mb-0">{{ user.zipCode }}</span>
                         </div>
+
                     </div>
                 </div>
             </div>
