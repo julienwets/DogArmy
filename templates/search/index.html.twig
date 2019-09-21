@@ -3,133 +3,129 @@
 {% block title %}Listing
 {% endblock %}
 
-{% block stylesheets %}
-{% endblock %}
+{% block stylesheets %}{% endblock %}
 {% block content %}
-{# <div id="listing-users"> #}
-{{ form_start(form, {'attr': {'id': 'form_search_user'}}) }}
-<h4 class="search">Filtres</h4>
-<div class="row">
-    <div class="col-sm-6 custom-control custom-radio">
-        <legend class="col-form-label form-control-label">J'habite dans</legend>
-        {{ form_widget(form.homeType) }}
-        <legend class="col-form-label form-control-label mt-3">Les jours où je travaille, mon/mes chien(s)</legend>
-        {{ form_widget(form.duringWork) }}
-    </div>
-    <div class="col-sm-6 custom-control custom-checkbox">
-        <legend class="col-form-label form-control-label">Dans ma maison, il y a</legend>
-        {{ form_widget(form.homeDetails) }}
-        <hr class="my-3" />
-        {{ form_widget(form.needsHelp) }}
-        
-        
-    </div>
-    <div class="col-lg-12 text-center mb-5">
-        <div class="pt-3 mt-3 delimiter-top text-center">
-            {{ form_widget(form.submit) }}
-            {{ form_widget(form.reinitialiser) }}
+    {# <div id="listing-users"> #}
+    {{ form_start(form, {'attr': {'id': 'form_search_user'}}) }}
+    <h4 class="search">Filtres</h4>
+    <div class="row">
+        <div class="col-sm-6 custom-control custom-radio">
+            <legend class="col-form-label form-control-label">J'habite dans</legend>
+            {{ form_widget(form.homeType) }}
+            <legend class="col-form-label form-control-label mt-3">Les jours où je travaille, mon/mes chien(s)</legend>
+            {{ form_widget(form.duringWork) }}
         </div>
+        <div class="col-sm-6 custom-control custom-checkbox">
+            <legend class="col-form-label form-control-label">Dans ma maison, il y a</legend>
+            {{ form_widget(form.homeDetails) }}
+            <hr class="my-3"/>
+            {{ form_widget(form.needsHelp) }}
 
-    </div>
-</div>
-{{ form_end(form) }}
-{# </div> #}
-<div class="row">
-    {% for user in users %}
-    <!-- <div class="card" style="width: 15rem;">
-        <img class="card-img-top" src="{{asset('uploads/user-pictures/' ~ user.imageName)}}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{user.email}}</h5>
-            <p class="card-text"></p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-        </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">Disponibilité</a>
-            <a href="#" class="card-link">Expé / Avis</a>
-        </div>
-    </div> -->
-    <div class="col-sm-4">
-        <div class="card overflow-hidden" data-animate-hover="2">
-            <div class="overflow-hidden">
-                <div class="animate-this">
-                    <a href="#">
-                        <img alt="Image placeholder" src="{{asset('uploads/user-pictures/' ~ user.imageName)}}" class="card-img-top">
 
-                    </a>
+        </div>
+        <div class="col-lg-12 text-center mb-5">
+            <div class="pt-3 mt-3 delimiter-top text-center">
+                {{ form_widget(form.submit) }}
+                {{ form_widget(form.reinitialiser) }}
+            </div>
+
+        </div>
+    </div>
+    {{ form_end(form) }}
+    {# </div> #}
+    <div class="row">
+        {% for user in users %}
+            <div class="col-sm-4">
+                <div class="card overflow-hidden" data-animate-hover="2">
+                    <div class="overflow-hidden">
+                        <div class="animate-this">
+                            <a href="{{path('user_show', {'id' : user.id}) }}">
+                                {% if user.imageName is not null %}
+                                    <img alt="Image placeholder" src="{{ vich_uploader_asset(user, 'imageFile') }}" class="card-img-top">
+                                {% else %}
+                                    <img alt="Image placeholder" class="card-img-top" src="{{ asset('img/default-user-picture.jpg') }}">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body text-center p-2">
+                        <h5 class="card-title mb-2">{{ user.firstname }}</h5>
+
+                        {# <ul class="nav justify-content-center mt-3">
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
+                                                                                            </li>
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
+                                                                                            </li>
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#"><i class="fab fa-github"></i></a>
+                                                                                            </li>
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#"><i class="fab fa-dribbble"></i></a>
+                                                                                            </li>
+                                                                                        </ul> #}
+
+                        <div class="avatar-group hover-avatar-ungroup mb-3">
+                            {% for dog in user.dogs %}
+                                <a href="#">
+                                    <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle mb-1" alt="{{dog.name}}" data-toggle="tooltip" data-placement="bottom" title="{{dog.name}}">
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-center">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="text-muted mb-0">{{ user.zipCode }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body text-center p-2">
-                <h5 class="card-title mb-2">{{ user.firstname }}</h5>
-                
-                <ul class="nav justify-content-center mt-3">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fab fa-facebook"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fab fa-github"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fab fa-dribbble"></i></a>
-                    </li>
-                </ul>
-                <div class="text-left">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span class="text-muted mb-0">{{ user.zipCode }}</span>
+
+
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <p>Merci de faire votre recherche pour afficher la liste</p>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
-
-
-    {% else %}
-    <div class="card">
-        <div class="card-body">
-            <p>Merci de faire votre recherche pour afficher la liste</p>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-{# </div> #}
+    {# </div> #}
 
 {% endblock %}
 
 
 {% block javascripts %}
-{{ parent() }}
-<script>
-    $(document).ready(function () {
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
 
-        var Filter = {
+            var Filter = {
 
-            init: function () {
+                init: function () {
 
-                Filter.reinitialisation = $("#reinitialiser");
-                Filter.searchUsers();
+                    Filter.reinitialisation = $("#reinitialiser");
+                    Filter.searchUsers();
 
-            },
+                },
 
-            searchUsers: function () {
+                searchUsers: function () {
 
-                Filter.reinitialisation.on('click', function () {
-                    $("select#homeType").val('');
-                    $('input[type =radio]').val('');
-                    $('input[type =checkbox]').val('');
-                    window.location.reload();
-                });
-            }
+                    Filter.reinitialisation.on('click', function () {
+                        $("select#homeType").val('');
+                        $('input[type =radio]').val('');
+                        $('input[type =checkbox]').val('');
+                        window.location.reload();
+                    });
+                }
 
-        };
+            };
 
-        $(function () {
-            Filter.init();
+            $(function () {
+                Filter.init();
+            });
         });
-    });
-</script>
+    </script>
 
 {% endblock %}

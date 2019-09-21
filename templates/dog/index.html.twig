@@ -1,30 +1,38 @@
 {% extends 'account/index.html.twig' %}
 
-{% block title %}Mon/Mes chien(s){% endblock %}
+{% block title %}Mon/Mes chien(s)
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('libs/fancybox/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/fancybox/jquery.fancybox.min.css') }}">
 {% endblock %}
 
 {% block content %}
 
+    {% if dogs >= 5 %}
+    <p class="txt-black">Vous pouvez enregistrer un maximum de 5 chiens, vous devrez en supprimer un si vous désirez en ajouter un autre.</p>    
+    {% endif %}
 
-{% for dog in dogs %}
 
-{% include "dog/dogs.html.twig" %}
+    {% for dog in dogs %}
 
-{% else %}
-<div class="jumbotron">
-    <p class="lead">Ici, vous pouvez ajouter votre/vos chien(s) au site afin de demander aux autres membres de le(s) garder.</p>
-    <a class="btn btn-primary" href="{{ path('dog_new') }}" role="button">Ajouter mon chien</a>
-</div>
-{% endfor %}
+        {% include "dog/dogs.html.twig" %}
+
+    {% else %}
+        <div class="jumbotron">
+            <p class="lead">Ici, vous pouvez ajouter votre/vos chien(s) au site afin de demander aux autres membres de le(s) garder.</p>
+            <a class="btn btn-primary" href="{{ path('dog_new') }}" role="button">Ajouter mon chien</a>
+        </div>
+    {% endfor %}
+
+    {% if dogs and dogs < 5 %}
+        <a class="btn btn-primary" href="{{ path('dog_new') }}" role="button">Ajouter un chien</a>
+    {% endif %}
 
 
 {% endblock %}
 
 {% block javascripts %}
-{{ parent () }}
-<script src="{{ asset('libs/fancybox/jquery.fancybox.min.js') }}"></script>
-    
+    {{ parent () }}
+    <script src="{{ asset('libs/fancybox/jquery.fancybox.min.js') }}"></script>
 {% endblock %}
