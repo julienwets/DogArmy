@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MessageController extends AbstractController
 {
     /**
-     * @Route("/message", name="message_index", methods={"GET","POST"})
+     * @Route("/messages", name="message_index", methods={"GET","POST"})
      */
     public function index(MessageRepository $messageRepository, Request $request, SittingRepository $sittingRepository, $sittingId = null): Response
     {

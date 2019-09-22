@@ -41,5 +41,9 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/dog, roles: ROLE_USER }
+        - { path: ^/membres, roles: ROLE_USER }
+        - { path: ^/profil, roles: ROLE_USER }
+        - { path: ^/chiens, roles: ROLE_USER }
+        - { path: ^/demandes, roles: ROLE_USER }
+        - { path: ^/messages, roles: ROLE_USER }
         - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

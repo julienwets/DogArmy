@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/sitting")
+ * @Route("/demandes")
  */
 class SittingController extends AbstractController
 {
