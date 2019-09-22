@@ -26,6 +26,12 @@ class Dog
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le nom de votre chien doit contenir au-moins 2 caractères",
+     *      max = 25,
+     *      maxMessage = "Le nom de votre chien ne peut pas comporter plus de 25 caractères"
+     *  )
      */
     private $name;
 
@@ -46,6 +52,10 @@ class Dog
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Length(
+     *          max = 50,
+     *          maxMessage = "Votre instagram ne peut pas comporter plus de 50 caractères",   
+     *)
      */
     private $instagram;
 

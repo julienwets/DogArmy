@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Serializable;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @Vich\Uploadable
@@ -28,6 +30,9 @@ class User implements UserInterface, Serializable
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(
+     *     message = "L'adresse e-mail '{{ value }}' n'est pas valide.",
+     * )
      */
     private $email;
 
@@ -37,8 +42,18 @@ class User implements UserInterface, Serializable
     private $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var string
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Votre mot de passe doit contenir au-moins 6 caractères",
+     *      max = 25,
+     *      maxMessage = "Votre mot de passe ne peut pas comporter plus de 25 caractères"
+     *  )
+     * @Assert\NotCompromisedPassword(
+     *      message = "haveibeenpwned.com nous indique que votre mot de passe a déjà été compromis ! Veuillez en utiliser un autre",
+     *      skipOnError = true  
+     *)
      */
     private $password;
 
@@ -134,6 +149,12 @@ class User implements UserInterface, Serializable
 
     /**
      * @ORM\Column(type="string", length=25)
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre prénom doit contenir au-moins 2 caractères",
+     *      max = 25,
+     *      maxMessage = "Votre prénom ne peut pas comporter plus de 25 caractères"
+     *  )
      */
     private $firstname;
 

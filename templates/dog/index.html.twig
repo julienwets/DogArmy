@@ -9,8 +9,10 @@
 
 {% block content %}
 
-    {% if dogs >= 5 %}
-    <p class="txt-black">Vous pouvez enregistrer un maximum de 5 chiens, vous devrez en supprimer un si vous désirez en ajouter un autre.</p>    
+    {% if dogs and dogs|length >= 5 %}
+        <p class="txt-black">Vous pouvez enregistrer un maximum de 5 chiens, vous devrez en supprimer un si vous désirez en ajouter un autre.</p>
+    {% else %}
+        <a class="btn btn-primary" href="{{ path('dog_new') }}" role="button">Ajouter un chien</a>
     {% endif %}
 
 
@@ -25,9 +27,7 @@
         </div>
     {% endfor %}
 
-    {% if dogs and dogs < 5 %}
-        <a class="btn btn-primary" href="{{ path('dog_new') }}" role="button">Ajouter un chien</a>
-    {% endif %}
+    {% if dogs is defined and dogs|length < 5 %}{% endif %}
 
 
 {% endblock %}

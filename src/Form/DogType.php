@@ -85,7 +85,7 @@ class DogType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'data-toggle' => 'autosize',
-                    'rows' => 5
+                    'rows' => 5,
                 ],
             ]);
     }
