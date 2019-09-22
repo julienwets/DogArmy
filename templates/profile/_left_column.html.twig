@@ -4,9 +4,9 @@
             <div class="card-profile-cover"></div>
             <a href="{{path('user_show', {'id': user.id}) }}" class="mx-auto">
                 {% if user.imageName is not null %}
-                <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
+                    <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
                 {% else %}
-                <img src="{{ asset('img/default-user-picture.jpg') }}" alt="{{ user.email }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
+                    <img src="{{ asset('img/default-user-picture.jpg') }}" alt="{{ user.firstname }}" class="card-profile-image avatar rounded-circle shadow hover-shadow-lg">
                 {% endif %}
 
             </a>
@@ -14,16 +14,46 @@
                 <a href="{{path('user_show', {'id': user.id}) }}">
                     <h5 class="mb-0">{{ user.firstname }}</h5>
                 </a>
-                <span class="d-block text-muted mb-3">{{ user.zipCode }}</span>
+                <span class="d-block text-muted mb-2">{{ user.zipCode }}</span>
                 <div class="avatar-group hover-avatar-ungroup mb-3">
                     {% for dog in user.dogs %}
-                    <a href="#">
-                        <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle" alt="{{dog.name}}" data-toggle="tooltip" data-placement="bottom" title="{{dog.name}}">
-                    </a>
+                        <a href="#">
+                            <img src="{{ vich_uploader_asset(dog, 'imageFile') }}" class="avatar rounded-circle" alt="{{dog.name}}" data-toggle="tooltip" data-placement="bottom" title="{{dog.name}}">
+                        </a>
                     {% endfor %}
                 </div>
+                <div class="pt-3 text-left fs-14 delimiter-top user-details">
+                        {% if user.homeType == 'Une maison' %}
+                            <div>
+                                <i class="fas fa-home fa-fw mr-2"></i>Habite dans une maison</div>
+                        {% else %}
+                            <div>
+                                <i class="fas fa-building mr-2"></i>Habite dans un appartement</div>
+                        {% endif %}
+
+                        <div>
+                            Disponibilités :
+                            {% for item in user.availableOn %}
+                                <div>
+                                    <i class="far fa-calendar fa-fw mr-2"></i>
+                                    {{item}}</div>
+                            {% endfor %}
+                        </div class="col-12">
+
+                        {% if user.homeDetails %}
+                            <div>
+                                Chez
+                                {{user.firstname}}, il y a :
+                                {% for item in user.homeDetails %}
+                                    <div>
+                                        <i class="fas fa-check fa-fw mr-2"></i>
+                                        {{item}}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                </div>
                 <div class="actions d-flex justify-content-between mt-3 pt-3 px-5 delimiter-top">
-                    <a href="{{path('user_show', {'id': user.id}) }}" class="action-item mx-auto">
+                    <a href="#" class="action-item mx-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
                 </div>
