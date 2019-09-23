@@ -264,10 +264,8 @@
 
         </div>
         <!-- Formulaire nouveau commentaire (message) -->
-        {% if date() < date(sitting.endTime) and sitting.state != 'confirmed' %}
         <div class="new-comment-form">
             {% include "message/_form.html.twig" %}
         </div>
-        {% endif %}
     </div>
 </div>
