@@ -102,14 +102,7 @@
                 {# Si le sitting n'a pas encore commencé #}
                 {% if sitting.startTime > "now"|date %}
 
-                    {% if sitting.user.id == app.user.id and sitting.state == 'requested' and sitting.helperUser.id is defined %}
-                        <div class="state-details p-2">
-                            <p class="text-muted m-0">
-                                <i class="fas fa-info-circle fa-fw mr-2 txt-primary"></i>Vous avez demandé à
-                                <a href="{{path('user_show', { 'id' : sitting.helperUser.id }) }}">{{ sitting.helperUser.firstname}}</a>
-                                de vous venir en aide, veuillez attendre sa réponse.</p>
-                        </div>
-                    {% endif %}
+
                     {% if sitting.helperUser.id is defined and sitting.helperUser.id == app.user.id and sitting.state == "requested" %}
                         <div class="state-details p-2">
                             <p class="text-muted m-0">
