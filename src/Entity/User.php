@@ -44,16 +44,6 @@ class User implements UserInterface, Serializable
     /**
      * @var string
      * @ORM\Column(type="string")
-     * @Assert\Length(
-     *      min = 6,
-     *      minMessage = "Votre mot de passe doit contenir au-moins 6 caractères",
-     *      max = 25,
-     *      maxMessage = "Votre mot de passe ne peut pas comporter plus de 25 caractères"
-     *  )
-     * @Assert\NotCompromisedPassword(
-     *      message = "haveibeenpwned.com nous indique que votre mot de passe a déjà été compromis ! Veuillez en utiliser un autre",
-     *      skipOnError = true  
-     *)
      */
     private $password;
 
